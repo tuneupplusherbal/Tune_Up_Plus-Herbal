@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-brand-green: #1a4d2e;
+  --color-brand-gold: #d4a743;
+  --color-brand-light-green: #e8f5e9;
+  --color-brand-light-gold: #f5e6b8;
+  --color-brand-dark: #333333;
+
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-urdu: 'Noto Nastaliq Urdu', serif;
+}
+
+/* Custom global overrides and premium calligraphy adjustments */
+body {
+  background-color: #fafdfb;
+  color: #333333;
+  font-family: var(--font-sans);
+}
+
+.font-urdu {
+  font-family: var(--font-urdu), serif;
+  line-height: 2.2;
+}
+
+/* Custom keyframes & animations for SPA page transitions */
+.animate-fadeIn {
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.brand-shimmer {
+  background: linear-gradient(90deg, #d4a743 0%, #f5e6b8 50%, #d4a743 100%);
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: 200% center;
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "TUNE-UP+",
+  "description": "Premium 100% Herbal Supplement website for TUNE-UP+ Herbal Capsules - Steroid-Free, PCSIR Tested organic formulation for family health, strength, and vitality.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
