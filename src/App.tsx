@@ -48,13 +48,26 @@ export default function App() {
   const [selectedPackage, setSelectedPackage] = useState<string>('couple');
   const [orderQuantity, setOrderQuantity] = useState<number>(1);
   const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [city, setCity] = useState('');
   const [address, setAddress] = useState('');
-  const [paymentMethod, setPaymentMethod] = useState<'COD' | 'BankDeposit'>('COD');
   const [notes, setNotes] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderSubmitted, setOrderSubmitted] = useState(false);
-  const [whatsappLink, setWhatsappLink] = useState('');
+  const [submissionError, setSubmissionError] = useState('');
+
+  // Anti-bot Human Verification States
+  const [num1, setNum1] = useState(5);
+  const [num2, setNum2] = useState(8);
+  const [userCaptchaAnswer, setUserCaptchaAnswer] = useState('');
+  const [captchaError, setCaptchaError] = useState(false);
+
+  // Randomize math verification values on mount
+  useEffect(() => {
+    setNum1(Math.floor(Math.random() * 8) + 2); // 2 to 9
+    setNum2(Math.floor(Math.random() * 8) + 2); // 2 to 9
+  }, []);
 
   // Monitor Active Sections & Back to Top button
   useEffect(() => {
@@ -86,33 +99,7 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Update WhatsApp link dynamic pre-population
-  useEffect(() => {
-    const selectedPkg = PRODUCT_PACKAGES.find(p => p.id === selectedPackage);
-    const pkgName = selectedPkg ? `${selectedPkg.name} (${selectedPkg.volume})` : selectedPackage;
-    const priceEach = selectedPkg ? selectedPkg.price : 0;
-    const totalCost = priceEach * orderQuantity;
 
-    const message = `Salam TUNE-UP+! 
-Mujhe Tune-Up+ Herbal Capsules ka order lagwana hai.
-
-📋 *ORDER DETAILS:*
-----------------------------------
-👤 Name: ${fullName || 'Not Provided'}
-📞 Phone: ${phoneNumber || 'Not Provided'}
-📍 City: ${city || 'Not Provided'}
-🏠 Address: ${address || 'Not Provided'}
-📦 Package: ${pkgName}
-🔢 Quantity: ${orderQuantity} (Double Course)
-💰 Total Price: Rs. ${totalCost} 
-🚚 Delivery: COD (Cash on Delivery)
-📝 Notes: ${notes || 'None'}
-
-Aap se guzarish hai ke mera order jald az jald process karein aur shippment details share karein. Shukriya!`;
-
-    const encodedText = encodeURIComponent(message);
-    setWhatsappLink(`https://api.whatsapp.com/send?phone=923120805339&text=${encodedText}`);
-  }, [selectedPackage, orderQuantity, fullName, phoneNumber, city, address, notes]);
 
   // Smooth scroll helper
   const scrollTo = (id: string) => {
@@ -132,17 +119,83 @@ Aap se guzarish hai ke mera order jald az jald process karein aur shippment deta
     setMobileMenuOpen(false);
   };
 
-  // Submit Handler for Form
-  const handleFormSubmit = (e: React.FormEvent) => {
+
+
+  // Submit Handler for Form via AJAX FormSubmit.co
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!fullName || !phoneNumber || !city || !address) {
-      alert("Meharbani karke tamam lazmi (*) fields pur karain.");
+
+    // Verify Captcha response
+    const correctAnswer = num1 + num2;
+    if (parseInt(userCaptchaAnswer, 10) !== correctAnswer) {
+      setCaptchaError(true);
+      const secEl = document.getElementById('security-check-container');
+      if (secEl) {
+        secEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
       return;
     }
-    setOrderSubmitted(true);
-    // Instant redirect to WhatsApp
-    window.open(whatsappLink, '_blank');
+
+    setCaptchaError(false);
+    setIsSubmitting(true);
+    setSubmissionError('');
+
+    try {
+      const totalBillAmount = 6900 * orderQuantity;
+      const totalBottlesCount = orderQuantity;
+      const totalCapsCount = orderQuantity * 60;
+      const pkgDetail = "Tune-Up+ Herbal Capsules (60 Capsules, 1 Month Course)";
+
+      // FormSubmit Setup Explanation:
+      // FormSubmit.co is a zero-backend form endpoint. This submits a JSON payload using AJAX.
+      // 1. First submission prompts a confirmation email to tune.up.plus.herbal@gmail.com.
+      // 2. Once confirmed, formsubmit will auto-reply to the customer (_email) and notify the admin.
+      const response = await fetch("https://formsubmit.co/ajax/tune.up.plus.herbal@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          Name: fullName,
+          Phone: phoneNumber,
+          email: email,
+          _email: email,
+          _replyto: email,
+          City: city,
+          Address: address,
+          "Selected Package": pkgDetail,
+          "Package Quantity": orderQuantity,
+          "Total Bottles": totalBottlesCount,
+          "Total Capsules": totalCapsCount,
+          "Total Price": `Rs. ${totalBillAmount.toLocaleString()}`,
+          "Order Notes": notes || 'None',
+          _subject: `New Order from Tune-Up+ - Rs. ${totalBillAmount.toLocaleString()} (${fullName})`,
+          _template: "box",
+          _captcha: "true",
+          _autoresponse: `Assalam-o-Alaikum! Thank you for your order from Tune-Up+. We have received your order details and will contact you shortly for confirmation.\n\n📋 YOUR ORDER SUMMARY (ORDER KI MAALUMAT):\n-------------------------------------\n👤 Customer Name: ${fullName}\n📦 Product Selected: Tune-Up+ Herbal Capsules\n🔢 Quantity ordered: ${orderQuantity} Bottle(s)\n🧴 Total Bottles: ${totalBottlesCount} Bottle(s) (${totalCapsCount} Capsules)\n💰 Total Bill: Rs. ${totalBillAmount.toLocaleString()} (Cash on Delivery + Free Delivery)\n📍 Shipping Address: ${address}, ${city}\n\nOur customer support and health expert team will contact you within just 2 hours to confirm your active order. For any questions or queries, please call or WhatsApp us at +92 312 0805339.\n\nThank you for choosing Tune-Up+ Pakistan!`
+        })
+      });
+
+      if (response.ok) {
+        setOrderSubmitted(true);
+        // Scroll to the contact section top smoothly to see receipt
+        const contactSection = document.getElementById('contact');
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      } else {
+        throw new Error("Failed to submit the form.");
+      }
+    } catch (err: any) {
+      console.error("FormSubmit Error:", err);
+      setSubmissionError("Order submit karne mein error pesha-aya hai. Meharbani karke dubara click karein ya screenshot le kar seedha hamare WhatsApp support button se contact karein.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+
 
   return (
     <div className="min-h-screen flex flex-col bg-[#fafdfb] relative overflow-x-hidden antialiased text-[#333333]">
@@ -151,7 +204,7 @@ Aap se guzarish hai ke mera order jald az jald process karein aur shippment deta
       {alertVisible && (
         <div className="bg-[#1a4d2e] text-white py-2 px-4 text-center text-xs md:text-sm font-semibold flex items-center justify-center gap-2 relative z-50 transition-all duration-300">
           <Sparkle className="w-4 h-4 text-[#d4a743] animate-spin" style={{ animationDuration: '4s' }} />
-          <span>🔥 Special Offer: Free Cash on Delivery (COD) and 50% discount across Pakistan this week!</span>
+          <span>🔥 Premium Offer: Free Cash on Delivery (COD) and Safe Private Packaging across Pakistan this week!</span>
           <button 
             onClick={() => setAlertVisible(false)} 
             className="absolute right-3 p-1 rounded hover:bg-white/10 text-white/80 hover:text-white"
@@ -378,9 +431,9 @@ Aap se guzarish hai ke mera order jald az jald process karein aur shippment deta
                 {/* Interactive Product Frame */}
                 <div className="relative bg-white rounded-[32px] p-4 shadow-2xl border border-[#e8f5e9]/80 transition-all duration-500 hover:scale-[1.03] hover:shadow-[#1a4d2e]/10 hover:shadow-3xl max-w-sm sm:max-w-md w-full">
                   
-                  {/* Floating Absolute Discount badge */}
-                  <div className="absolute -top-3 -right-3 bg-red-600 text-white font-black text-sm px-4 py-2 rounded-full uppercase tracking-widest shadow-lg rotate-12 animate-pulse">
-                    50% OFF!
+                  {/* Floating Absolute Premium badge */}
+                  <div className="absolute -top-3 -right-3 bg-[#d4a743] text-white font-black text-sm px-4 py-2 rounded-full uppercase tracking-widest shadow-lg rotate-12">
+                    100% Qudrati!
                   </div>
 
                   <div className="overflow-hidden rounded-[24px] aspect-square bg-[#fafdfb] flex items-center justify-center">
@@ -597,7 +650,7 @@ Aap se guzarish hai ke mera order jald az jald process karein aur shippment deta
                       onClick={() => scrollTo('contact')}
                       className="bg-[#d4a743] hover:bg-white hover:text-[#1a4d2e] px-8 py-3.5 rounded-xl text-sm font-bold shadow-lg transition-all"
                     >
-                      Browse Discount Packages
+                      Abhi Order Karein
                     </button>
                   </div>
                 </div>
@@ -854,10 +907,15 @@ Aap se guzarish hai ke mera order jald az jald process karein aur shippment deta
 
                     {/* Highly prominent big responsive WhatsApp Button */}
                     <a 
-                      href="https://wa.me/923120805339"
-                      className="w-full bg-[#25D366] hover:bg-[#20ba59] text-white py-4 px-6 rounded-xl font-bold flex items-center justify-center gap-3 shadow-md transition-all text-base transform hover:-translate-y-0.5"
+                      href="https://wa.me/923120805339?text=Assalam-o-Alaikum%20Tune-Up%2B%20Team%2C%20mujhe%20Tune-Up%2B%20capsules%20order%20karne%20hain"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="w-full bg-[#25D366] hover:bg-[#20ba59] text-white py-4 px-6 rounded-xl font-bold flex flex-col items-center justify-center gap-0.5 shadow-md transition-all text-base transform hover:-translate-y-0.5 animate-pulse"
                     >
-                      <span className="text-2xl">💬</span> Direct WhatsApp Chat (Afsar Se Raabta)
+                      <span className="flex items-center gap-2 font-black text-sm sm:text-base">
+                        <span className="text-2xl">💬</span> Direct WhatsApp Par Order Karein
+                      </span>
+                      <span className="text-[10px] sm:text-[11px] font-medium opacity-90">Chat par details bhej kar apna order lagwayain</span>
                     </a>
 
                   </div>
@@ -911,54 +969,151 @@ Aap se guzarish hai ke mera order jald az jald process karein aur shippment deta
 
               </div>
 
-              {/* Dynamic interactive form (Right Column) */}
+              {/* Dynamic interactive form or Confirmation Receipt (Right Column) */}
               <div className="lg:col-span-7">
-                <div className="bg-white p-6 sm:p-10 rounded-[32px] border border-[#e8f5e9] shadow-md relative">
+                <div className="bg-white p-6 sm:p-10 rounded-[32px] border border-[#e8f5e9] shadow-md relative transition-all duration-500 overflow-hidden">
                   
                   {orderSubmitted ? (
-                    <div className="text-center py-12 space-y-6">
-                      <div className="w-20 h-20 bg-[#e8f5e9] text-[#1a4d2e] rounded-full flex items-center justify-center text-4xl mx-auto shadow-inner animate-bounce">
-                        ✓
-                      </div>
-                      <h3 className="text-2xl font-serif font-black text-[#1a4d2e]">JazaakAllah! Aapka Order Tayar Hai!</h3>
-                      <p className="text-sm text-gray-600 max-w-md mx-auto">
-                        Aapke order ki details niche generate ki ja chuki hain. Agar aap ka WhatsApp behre-haal automatic open nahi hua to niche blue direct order button dabain:
-                      </p>
-
-                      <div className="p-4 bg-gray-50 rounded-2xl text-xs text-left max-w-sm mx-auto border border-gray-100 break-words font-mono">
-                        <p className="font-bold border-b pb-1 mb-2 text-[#1a4d2e]">Prepopulated Live Payload:</p>
-                        <p>Name: {fullName}</p>
-                        <p>Phone: {phoneNumber}</p>
-                        <p>City: {city}</p>
-                        <p>Address: {address}</p>
-                        <p>Package: {selectedPackage}</p>
+                    /* Beautiful Custom Order Confirmed Receipt Section */
+                    <div className="space-y-6 md:space-y-8 py-4 animate-fadeIn">
+                      
+                      {/* Top Check Block */}
+                      <div className="text-center space-y-3">
+                        <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto text-emerald-600 animate-bounce">
+                          <CheckCircle className="w-10 h-10" />
+                        </div>
+                        <h3 className="text-2xl font-serif font-black text-[#1a4d2e]">
+                          Aapka Order Confirmed! 🎉
+                        </h3>
+                        <p className="text-sm text-gray-500 font-medium">
+                          Thank you for choosing Tune-Up+! Humne aap ke order ki tafseelat mehfooz kar li hain.
+                        </p>
                       </div>
 
-                      <div className="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
-                        <a 
-                          href={whatsappLink}
+                      {/* Fast Contact Guarantee Info Banner */}
+                      <div className="bg-[#f5e6b8] border-2 border-[#d4a743] rounded-2xl p-5 flex gap-4 items-start shadow-sm">
+                        <span className="text-2xl animate-pulse">⚡</span>
+                        <div>
+                          <h4 className="font-extrabold text-[#1a4d2e] text-sm flex items-center gap-2">
+                            <span>2 Ghante Ka Raabta Guarantee:</span>
+                          </h4>
+                          <p className="text-xs text-gray-800 leading-relaxed mt-1 font-bold">
+                            Hamari expert support team aapse safe confirmation ke liye <span className="text-red-700 bg-red-50 px-1 border border-red-200 rounded">sirf 2 ghante ke andar (within Just 2 hours)</span> isi mobile/WhatsApp number par rabta karegi aur confirmation ke baad package safe dispatch kiya jaye ga.
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Clean Professional Invoice Details Table */}
+                      <div className="border border-gray-200 rounded-2xl overflow-hidden shadow-xs">
+                        <div className="bg-gray-50 px-4 py-3 border-b border-gray-200 flex justify-between items-center">
+                          <span className="text-[10px] font-black text-gray-400 uppercase tracking-wider">
+                            Receipt / Bill No: {`TU-${Date.now().toString().slice(-6)}`}
+                          </span>
+                          <span className="bg-emerald-100 text-emerald-800 text-[9px] font-black px-2 py-0.5 rounded-full uppercase">
+                            Cash On Delivery
+                          </span>
+                        </div>
+                        <div className="p-4 space-y-4 text-xs">
+                          {/* Invoice Rows */}
+                          <div className="grid grid-cols-2 gap-y-2.5 pb-3 border-b border-gray-100">
+                            <div>
+                              <p className="text-gray-400 font-bold">Customer Name:</p>
+                              <p className="font-black text-gray-800 text-sm mt-0.5">{fullName}</p>
+                            </div>
+                            <div>
+                              <p className="text-gray-400 font-bold">Mobile / WhatsApp:</p>
+                              <p className="font-black text-gray-800 text-sm mt-0.5">{phoneNumber}</p>
+                            </div>
+                            <div className="col-span-2 pt-1.5">
+                              <p className="text-gray-400 font-bold">Email Address:</p>
+                              <p className="font-bold text-gray-800 mt-0.5">{email}</p>
+                            </div>
+                          </div>
+
+                          <div className="space-y-2 pb-3 border-b border-gray-100 bg-gray-50/50 p-2.5 rounded-xl">
+                            <div className="flex justify-between items-center text-xs font-bold text-gray-500">
+                              <span>Product Selected:</span>
+                              <span className="text-[#1a4d2e] font-black">
+                                Tune-Up+ Herbal Capsules
+                              </span>
+                            </div>
+                            <div className="flex justify-between items-center text-xs font-bold text-gray-500">
+                              <span>Quantity (Tadaad):</span>
+                              <span className="text-gray-800 font-extrabold">{orderQuantity} Bottle{orderQuantity > 1 ? 's' : ''}</span>
+                            </div>
+                            <div className="flex justify-between items-center text-xs font-bold text-gray-500">
+                              <span>Dose & volume:</span>
+                              <span className="text-gray-500 font-medium">
+                                {orderQuantity * 60} Capsules ({orderQuantity} Month Course)
+                              </span>
+                            </div>
+                          </div>
+
+                          <div className="flex justify-between items-center pt-1">
+                            <div>
+                              <p className="font-extrabold text-[#1a4d2e] text-sm">Total Delivery Bill (COD):</p>
+                              <p className="text-[10px] text-gray-400">Pure Pakistan mein Delivery aur safe pack mukammal FREE hai.</p>
+                            </div>
+                            <div className="text-right">
+                              <span className="text-xl font-black text-[#1a4d2e] bg-[#e8f5e9] px-3.5 py-1.5 rounded-xl border border-[#1a4d2e]/10">
+                                Rs. {(6900 * orderQuantity).toLocaleString()}
+                              </span>
+                            </div>
+                          </div>
+
+                          {address && (
+                            <div className="pt-2 border-t border-gray-100 text-[11px]">
+                              <p className="text-gray-400 font-bold">Shipping Address / Pata:</p>
+                              <p className="font-medium text-gray-700 mt-0.5">{address}, {city}</p>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Call-to-action buttons */}
+                      <div className="space-y-3">
+                        <a
+                          href={`https://wa.me/923120805339?text=${encodeURIComponent(
+                            `Assalam-o-Alaikum Tune-Up+ Team, Mene abhi website se order place kiya hai.\n\n📋 ORDER DETAILS:\n👤 Naam (Name): ${fullName}\n📞 Phone Number: ${phoneNumber}\n📧 Email: ${email}\n📦 Product Selected: Tune-Up+ Herbal Capsules\n🔢 Quantity (Tadaad): ${orderQuantity} Bottle(s)\n🧴 Total: ${orderQuantity} Bottle(s) (${orderQuantity * 60} Capsules)\n💰 Total Bill: Rs. ${(6900 * orderQuantity).toLocaleString()}\n📍 City: ${city}\n🏠 Address: ${address}\n\nMeharbani farma kar mera order confirm card check karein!`
+                          )}`}
                           target="_blank"
                           rel="noreferrer"
-                          className="bg-[#25D366] text-white font-bold py-3 px-8 rounded-xl hover:bg-[#20ba59] transition-all inline-flex items-center justify-center gap-2 text-sm shadow-md"
+                          className="w-full bg-[#25D366] hover:bg-[#20ba59] text-white py-3.5 px-4 rounded-xl font-bold flex flex-col items-center justify-center gap-0.5 shadow-md transition-all text-sm transform hover:scale-[1.01]"
                         >
-                          <span>💬 Whatsapp Par Bhejain</span>
+                          <span className="flex items-center gap-2 font-black text-sm">
+                            <span>💬</span> WhatsApp Par Order Confirm Karein
+                          </span>
+                          <span className="text-[10px] sm:text-[11px] font-medium opacity-90">Ek click mein apni order details WhatsApp par send karein</span>
                         </a>
                         <button
                           onClick={() => {
                             setOrderSubmitted(false);
                             setFullName('');
                             setPhoneNumber('');
+                            setEmail('');
                             setCity('');
                             setAddress('');
+                            setNotes('');
+                            setUserCaptchaAnswer('');
+                            // Randomize new captcha
+                            setNum1(Math.floor(Math.random() * 8) + 2);
+                            setNum2(Math.floor(Math.random() * 8) + 2);
                           }}
-                          className="bg-gray-100 hover:bg-gray-200 text-[#333333] font-bold py-3 px-6 rounded-xl transition-all text-smSB"
+                          className="w-full bg-white border border-gray-300 text-gray-600 py-3 px-4 rounded-xl font-bold text-xs hover:bg-gray-50 transition-colors block text-center"
                         >
-                          Naya Order Likhiye
+                          🔄 Ek Aur Order Place Karein (Order Another)
                         </button>
                       </div>
+
                     </div>
                   ) : (
-                    <form onSubmit={handleFormSubmit} className="space-y-6">
+                    /* Elegant Form Column */
+                    <form 
+                      onSubmit={handleFormSubmit}
+                      className="space-y-6"
+                    >
+                      {/* Hidden honey pot fields & security checks */}
+                      <input type="text" name="_honey" className="hidden" style={{ display: 'none' }} />
                       
                       {/* Header block for form */}
                       <div className="border-b pb-4 border-[#e8f5e9]">
@@ -968,76 +1123,118 @@ Aap se guzarish hai ke mera order jald az jald process karein aur shippment deta
                         <p className="text-xs text-gray-500 mt-1">Free delivery and private packaging. Cash on delivery standard across regions.</p>
                       </div>
 
-                      {/* 1. Package selecting dynamic preview container */}
+                      {/* 1. Single Product pricing & Details Showcase */}
                       <div className="space-y-3">
-                        <label className="block text-sm font-bold text-gray-700">Abhi Apna Discount Package Chunain (Select Package) *</label>
-                        <div className="grid grid-cols-1 gap-3">
-                          {PRODUCT_PACKAGES.map((pkg) => {
-                            const isSelected = selectedPackage === pkg.id;
-                            return (
-                              <div
-                                key={pkg.id}
-                                onClick={() => setSelectedPackage(pkg.id)}
-                                className={`p-4 rounded-2xl border-2 transition-all cursor-pointer relative flex justify-between items-center ${
-                                  isSelected 
-                                    ? 'bg-[#e8f5e9]/50 border-[#1a4d2e] shadow-sm'
-                                    : 'bg-white border-gray-100 hover:border-[#1a4d2e]/20'
-                                }`}
-                              >
-                                {pkg.popular && (
-                                  <span className="absolute -top-2.5 right-6 bg-[#d4a743] text-white text-[9px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-widest shadow-sm">
-                                    Highly Recommended
-                                  </span>
-                                )}
-
-                                <div>
-                                  <div className="flex items-center gap-2">
-                                    <span className={`w-4 h-4 rounded-full border flex items-center justify-center ${isSelected ? 'border-[#1a4d2e] bg-[#1a4d2e]' : 'border-gray-300'}`}>
-                                      {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
-                                    </span>
-                                    <h4 className="font-bold text-sm text-[#1a4d2e]">{pkg.name}</h4>
-                                  </div>
-                                  <p className="text-xs text-gray-500 ml-6 mt-1 flex items-center gap-1.5">
-                                    <span>📦 {pkg.volume} ({pkg.capsuleCount} capsules)</span>
-                                    <span className="text-[#d4a743] font-bold">•</span>
-                                    <span className="text-emerald-800 font-bold bg-[#e8f5e9] px-1.5 py-0.5 rounded text-[10px]">{pkg.duration}</span>
-                                  </p>
-                                </div>
-
-                                <div className="text-right">
-                                  <div className="text-xs text-gray-400 line-through">Rs. {pkg.originalPrice}</div>
-                                  <div className="text-base font-black text-[#1a4d2e]">Rs. {pkg.price}</div>
-                                  <p className="text-[10px] text-green-700 font-extrabold bg-green-50 px-1.5 py-0.5 rounded mt-0.5">Bachat: Rs. {pkg.savedAmount}</p>
-                                </div>
-                              </div>
-                            );
-                          })}
+                        <label className="block text-sm font-bold text-gray-700">Selected Supplement (Muntakhib Karda Product) *</label>
+                        
+                        <div className="bg-gradient-to-tr from-[#1a4d2e] to-[#2e6e47] text-white p-6 rounded-2xl shadow-md space-y-4 border border-[#d4a743]/30 relative overflow-hidden">
+                          <div className="absolute right-[-10px] top-[-10px] w-24 h-24 bg-white/5 rounded-full blur-xl pointer-events-none" />
+                          <div className="flex justify-between items-start">
+                            <div>
+                              <span className="bg-[#d4a743] text-white text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                                Original Product
+                              </span>
+                              <h4 className="font-serif font-black text-xl text-white mt-1.5">
+                                Tune-Up+ Herbal Capsules
+                              </h4>
+                              <p className="text-xs text-emerald-100/90 font-medium">
+                                60 Capsules, 1 Month Course (1 Bottle)
+                              </p>
+                            </div>
+                            <div className="text-right">
+                              <span className="text-xs text-[#d4a743] font-bold block uppercase tracking-wider">Price</span>
+                              <span className="text-2xl font-black text-[#d4a743]">Rs. 6,900</span>
+                              <span className="text-[10px] text-emerald-200 block">per bottle</span>
+                            </div>
+                          </div>
                         </div>
                       </div>
 
-                      {/* Package calculations and multipliers */}
-                      <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100 flex items-center justify-between text-xs">
-                        <div>
-                          <span className="text-gray-500 font-bold">Kitne Packages Chahiyen? (Order Quantity)</span>
-                          <p className="text-gray-400 text-[10px]">Aap multiply kar sakte hain dose barhane ke liye.</p>
-                        </div>
-                        <div className="flex items-center gap-3 bg-white p-1 rounded-xl border">
-                          <button
-                            type="button"
-                            onClick={() => setOrderQuantity(Math.max(1, orderQuantity - 1))}
-                            className="bg-gray-100 hover:bg-gray-200 p-1.5 rounded-lg text-gray-600 transition-colors"
+                      {/* 2. Quantity selector dropdown (1 to 5 bottleneck) */}
+                      <div className="space-y-4">
+                        <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                          <div>
+                            <span className="text-gray-700 font-extrabold text-sm sm:text-xs">Kitni Bottles Chahiyen? (Order Quantity) *</span>
+                            <p className="text-gray-400 text-[10px]">Aap jitni bottles chahte hain unki total tadaad select karein.</p>
+                          </div>
+                          <select
+                            name="Quantity"
+                            value={orderQuantity}
+                            onChange={(e) => setOrderQuantity(parseInt(e.target.value, 10))}
+                            required
+                            className="bg-white border border-gray-200 text-sm font-extrabold text-[#1a4d2e] rounded-xl px-4 py-2.5 focus:border-[#1a4d2e] focus:outline-none focus:ring-1 focus:ring-[#1a4d2e] transition-all cursor-pointer min-w-[150px]"
                           >
-                            <Minus className="w-3.5 h-3.5" />
-                          </button>
-                          <span className="font-bold text-sm text-[#1a4d2e] px-1 min-w-[20px] text-center">{orderQuantity}</span>
-                          <button
-                            type="button"
-                            onClick={() => setOrderQuantity(orderQuantity + 1)}
-                            className="bg-gray-100 hover:bg-gray-200 p-1.5 rounded-lg text-gray-600 transition-colors"
-                          >
-                            <Plus className="w-3.5 h-3.5" />
-                          </button>
+                            <option value="1">1 Bottle - Rs. 6,900</option>
+                            <option value="2">2 Bottles - Rs. 13,800</option>
+                            <option value="3">3 Bottles - Rs. 20,700</option>
+                            <option value="4">4 Bottles - Rs. 27,600</option>
+                            <option value="5">5 Bottles - Rs. 34,500</option>
+                          </select>
                         </div>
+
+                        {/* Hidden input fields as requested for formsubmit compliance */}
+                        <input type="hidden" name="Quantity" value={orderQuantity} />
+                        <input type="hidden" name="Total Price" value={`Rs. ${(6900 * orderQuantity).toLocaleString()}`} />
+                        <input type="hidden" name="Total Bottles" value={orderQuantity} />
+                        <input type="hidden" name="Total Capsules" value={orderQuantity * 60} />
+
+                        {/* Interactive Realtime Pricing Breakdown */}
+                        {(() => {
+                          const pricePerBottle = 6900;
+                          const totalBottles = orderQuantity;
+                          const totalCapsCount = orderQuantity * 60;
+                          const totalBillAmount = pricePerBottle * orderQuantity;
+
+                          // Urdu translation for details
+                          const urduDetails = `مجموعی طور پر آپ کو ${totalBottles} بوتل${totalBottles > 1 ? 'یں' : ''} (${totalCapsCount} کیپسول) ملیں ${totalBottles > 1 ? 'گی' : 'گا'} جو کہ ${orderQuantity} مہینے کے کورس کے لیے کافی ہے۔`;
+
+                          return (
+                            <div className="bg-[#e8f5e9]/20 border border-[#e8f5e9] p-4 sm:p-5 rounded-2xl text-xs space-y-3.5 transform transition-all duration-300">
+                              <div className="flex justify-between items-center pb-2 border-b border-emerald-200/40 text-emerald-950">
+                                <span className="font-extrabold text-[11px] uppercase tracking-wider text-emerald-800 flex items-center gap-1.5">
+                                  <span>📊</span> AAPKA BIL KI TAFSEELAT (LIVE CALCULATOR)
+                                </span>
+                                <span className="bg-[#1a4d2e] text-white text-[9px] px-2 py-0.5 rounded-full font-black uppercase tracking-wider">
+                                  Autocalculated
+                                </span>
+                              </div>
+
+                              <div className="grid grid-cols-2 gap-y-2.5 font-semibold text-gray-700">
+                                <div className="text-gray-500">Selected Product:</div>
+                                <div className="text-right text-[#1a4d2e] font-black">Tune-Up+ Herbal Capsules</div>
+
+                                <div className="text-gray-500 font-medium">Order Quantity:</div>
+                                <div className="text-right font-black text-gray-800 bg-white/80 px-2.5 py-0.5 rounded border inline-block ml-auto">
+                                  {orderQuantity}x Bottle{orderQuantity > 1 ? 's' : ''}
+                                </div>
+
+                                <div className="text-gray-500 font-medium">Total Bottles & Capsules:</div>
+                                <div className="text-right font-black text-[#1a4d2e] text-sm sm:text-xs">
+                                  {totalBottles} Bottle{totalBottles > 1 ? 's' : ''} ({totalCapsCount} Capsules)
+                                </div>
+
+                                <div className="text-gray-500 font-medium">Dose Course Duration:</div>
+                                <div className="text-right font-black text-emerald-800">
+                                  {orderQuantity} Month{orderQuantity > 1 ? 's' : ''} Course ({orderQuantity} Mahine Ka Course)
+                                </div>
+
+                                <div className="text-[#193a23] font-extrabold text-sm border-t border-emerald-200/40 pt-2 shrink-0">Total Bill Amount (COD):</div>
+                                <div className="text-right text-base font-black text-[#1a4d2e] border-t border-emerald-200/40 pt-2">
+                                  Rs. {totalBillAmount.toLocaleString()}
+                                </div>
+                              </div>
+
+                              {/* Urdu Information banner matching user identity */}
+                              <div className="bg-white/90 border border-emerald-100 p-2.5 rounded-xl text-center text-[10px] sm:text-xs text-emerald-950 font-semibold leading-relaxed">
+                                {urduDetails}
+                              </div>
+
+                              <div className="bg-[#f5e6b8]/10 text-[#1a4d2e] font-extrabold p-2.5 sm:p-3 rounded-xl text-center text-[11px] sm:text-xs border border-[#1a4d2e]/10">
+                                📦 MUKAMMAL FREE DELIVERY + CASH ON DELIVERY Standard Across Pakistan!
+                              </div>
+                            </div>
+                          );
+                        })()}
                       </div>
 
                       {/* 2. Customer Personal Details */}
@@ -1069,33 +1266,32 @@ Aap se guzarish hai ke mera order jald az jald process karein aur shippment deta
                         </div>
                       </div>
 
-                      {/* 3. Customer Address Details */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="space-y-1.5">
-                          <label htmlFor="cityfield" className="block text-xs font-bold text-gray-700">Shehar Select Karein (City) *</label>
-                          <input
-                            type="text"
-                            id="cityfield"
-                            placeholder="e.g. Lahore / Karachi / Peshawar"
-                            value={city}
-                            onChange={(e) => setCity(e.target.value)}
-                            required
-                            className="w-full bg-[#fafdfb] rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-[#1a4d2e] focus:outline-none focus:ring-1 focus:ring-[#1a4d2e] transition-colors"
-                          />
-                        </div>
+                      {/* Email Field Added for customer confirmation copy */}
+                      <div className="space-y-1.5">
+                        <label htmlFor="emailfield" className="block text-xs font-bold text-gray-700">Apka Email Address (Active Email) *</label>
+                        <input
+                          type="email"
+                          id="emailfield"
+                          placeholder="e.g. aslam@gmail.com"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                          className="w-full bg-[#fafdfb] rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-[#1a4d2e] focus:outline-none focus:ring-1 focus:ring-[#1a4d2e] transition-colors"
+                        />
+                      </div>
 
-                        <div className="space-y-1.5">
-                          <label htmlFor="pmth" className="block text-xs font-bold text-gray-700">Zareea-e-Adaigi (Payment Method)</label>
-                          <select
-                            id="pmth"
-                            value={paymentMethod}
-                            onChange={(e) => setPaymentMethod(e.target.value as 'COD' | 'BankDeposit')}
-                            className="w-full bg-[#fafdfb] rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-[#1a4d2e] focus:outline-none focus:ring-1 focus:ring-[#1a4d2e] transition-all"
-                          >
-                            <option value="COD">Cash on Delivery (سہولت دستیاب)</option>
-                            <option value="BankDeposit">JazzCash / EasyPaisa / Bank Transfer</option>
-                          </select>
-                        </div>
+                      {/* 3. Customer Address Details */}
+                      <div className="space-y-1.5">
+                        <label htmlFor="cityfield" className="block text-xs font-bold text-gray-700">Shehar Select Karein (City) *</label>
+                        <input
+                          type="text"
+                          id="cityfield"
+                          placeholder="e.g. Lahore / Karachi / Peshawar"
+                          value={city}
+                          onChange={(e) => setCity(e.target.value)}
+                          required
+                          className="w-full bg-[#fafdfb] rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-[#1a4d2e] focus:outline-none focus:ring-1 focus:ring-[#1a4d2e] transition-colors"
+                        />
                       </div>
 
                       <div className="space-y-1.5">
@@ -1123,29 +1319,94 @@ Aap se guzarish hai ke mera order jald az jald process karein aur shippment deta
                         />
                       </div>
 
+                      {/* 2-Hour Contact Guarantee Stamp Container */}
+                      <div className="bg-[#f5e6b8]/40 border border-[#d4a743]/30 rounded-2xl p-4 flex gap-3 items-start">
+                        <span className="text-xl mt-0.5">⚡</span>
+                        <div>
+                          <h4 className="font-extrabold text-[#1a4d2e] text-xs">⚡ Fast Contact Guarantee:</h4>
+                          <p className="text-xs text-gray-700 leading-relaxed mt-0.5">
+                            Order submit karte hi hamari team safe confirmation ke liye <strong>sirf 2 ghante ke andar (within Just 2 hours)</strong> aapse rabta karegi aur customer verification ke baad parcel dispatched hoga.
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Anti-bot Human Verification Challenge */}
+                      <div id="security-check-container" className={`p-4 rounded-2xl border-2 transition-all ${captchaError ? 'bg-red-50 border-red-500' : 'bg-[#e8f5e9]/20 border-[#1a4d2e]/10'}`}>
+                        <div className="flex items-center gap-1.5 mb-1">
+                          <span className="text-sm">🔐</span>
+                          <h4 className="font-extrabold text-[#1a4d2e] text-xs uppercase tracking-wider">Insani Shanakht / Human Security Verification *</h4>
+                        </div>
+                        <p className="text-[11px] text-gray-500 mb-3.5 leading-snug">
+                          Spam bots se bachne ke liye meharbani karke is aasan hisab ko hal karein:
+                        </p>
+
+                        <div className="flex items-center gap-3">
+                          <div className="bg-white border border-gray-200 rounded-xl px-4 py-2.5 font-mono text-base font-black text-[#1a4d2e] shadow-sm tracking-widest bg-radial">
+                            {num1} + {num2} = ?
+                          </div>
+                          <input
+                            type="number"
+                            value={userCaptchaAnswer}
+                            onChange={(e) => {
+                              setUserCaptchaAnswer(e.target.value);
+                              setCaptchaError(false);
+                            }}
+                            placeholder="Jawab likhein..."
+                            required
+                            className="flex-1 bg-white rounded-xl border border-gray-200 px-4 py-2.5 text-sm font-extrabold text-[#1a4d2e] focus:border-[#1a4d2e] focus:outline-none focus:ring-1 focus:ring-[#1a4d2e] transition-colors"
+                          />
+                        </div>
+
+                        {captchaError && (
+                          <div className="mt-3 text-xs text-red-600 font-bold flex items-center gap-1 p-2 bg-red-100/50 rounded-lg border border-red-200">
+                            <span>⚠️</span> Hisab ka jawab ghalt hai! Meharbani karke durust jawab likhein.
+                          </div>
+                        )}
+                      </div>
+
                       {/* Display Total Price before checkout */}
                       <div className="bg-[#e8f5e9] p-4 rounded-2xl flex justify-between items-center border border-[#1a4d2e]/10">
                         <div className="text-xs">
                           <span className="font-bold text-[#1a4d2e] block">Total Order Value:</span>
-                          <span className="text-gray-500">Free Packaging + COD Inclusive</span>
+                          <span className="text-gray-500">Free Packaging + COD Inclusive across Pakistan</span>
                         </div>
                         <div className="text-right">
                           <span className="text-lg font-black text-[#1a4d2e]">
-                            Rs. {((PRODUCT_PACKAGES.find(p => p.id === selectedPackage)?.price || 0) * orderQuantity).toLocaleString()}
+                            Rs. {(6900 * orderQuantity).toLocaleString()}
                           </span>
                         </div>
                       </div>
 
+                      {submissionError && (
+                        <div className="text-xs text-red-600 font-extrabold p-3 bg-red-50 border border-red-200 rounded-2xl">
+                          ⚠️ {submissionError}
+                        </div>
+                      )}
+
                       {/* Submit Order Details button */}
                       <button
                         type="submit"
-                        className="w-full bg-[#1a4d2e] text-white py-4 px-6 rounded-xl font-bold text-base shadow-lg shadow-[#1a4d2e]/20 hover:bg-[#d4a743] hover:text-white transition-all transform hover:scale-[1.01] flex items-center justify-center gap-2"
+                        disabled={isSubmitting}
+                        className={`w-full text-white py-4 px-6 rounded-xl font-bold text-base shadow-lg transition-all transform hover:scale-[1.01] flex flex-col items-center justify-center gap-0.5 ${
+                          isSubmitting 
+                            ? 'bg-gray-400 cursor-not-allowed shadow-none' 
+                            : 'bg-[#1a4d2e] shadow-[#1a4d2e]/20 hover:bg-[#d4a743]'
+                        }`}
                       >
-                        <span>🚀 Order Details Submit Karein (Open Whatsapp)</span>
+                        {isSubmitting ? (
+                          <span className="flex items-center gap-2 font-black text-sm">
+                            ⌛ Processing... Please Wait...
+                          </span>
+                        ) : (
+                          <>
+                            <span className="text-base font-black">🚀 Confirm Order & Submit Details</span>
+                            <span className="text-[11px] font-medium opacity-90">Our health support team will contact you within Just 2 hours!</span>
+                          </>
+                        )}
                       </button>
 
                       <div className="text-center text-[10px] text-gray-400">
-                        🔒 Safe checkout: Submit details and open official chat. We conform strictly to customer trust laws in Pakistan.
+                        🔒 Safe checkout: Submit details safely. We conform strictly to customer trust laws in Pakistan.
                       </div>
 
                     </form>
