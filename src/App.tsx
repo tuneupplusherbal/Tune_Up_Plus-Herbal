@@ -373,7 +373,7 @@ export default function App() {
 
                 {/* Subtitle in Roman Urdu explaining USP and targeted families */}
                 <p className="text-lg md:text-xl text-gray-700 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                  Aapki aur aapki family ki tawanai, joron ke dard ka aaram, aur her khandaan ki immunity ke liye <strong className="text-[#1a4d2e]">TUNE-UP+ capsules</strong>. 100% steroid-free aur PCSIR certified qudrati ghiza jo jism ko andar se chust banti hai.
+                  Aapki aur aapki family ki tawanai, joron ke dard ka aaram, aur her khandaan ki immunity ke liye <strong className="text-[#1a4d2e]">TUNE-UP+ capsules</strong>. 100% steroid-free aur PCSIR Lab Tested qudrati ghiza jo jism ko andar se chust banti hai.
                 </p>
 
                 {/* Specific roman urdu tagline list with dynamic ticks */}
@@ -452,7 +452,7 @@ export default function App() {
                   {/* Trust Badge highlights over Image */}
                   <div className="mt-4 pt-4 border-t border-[#e8f5e9] px-2 flex justify-between items-center text-xs text-gray-500 font-bold">
                     <span className="flex items-center gap-1"><ShieldCheck className="w-4 h-4 text-[#d4a743]" /> 100% Organics</span>
-                    <span className="flex items-center gap-1"><Award className="w-4 h-4 text-[#d4a743]" /> PCSIR Verified</span>
+                    <span className="flex items-center gap-1"><Award className="w-4 h-4 text-[#d4a743]" /> PCSIR Tested</span>
                     <span className="flex items-center gap-1"><Leaf className="w-4 h-4 text-[#d4a743]" /> Safe Natural Formula</span>
                   </div>
 
@@ -494,7 +494,7 @@ export default function App() {
             <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
               <span className="text-xs uppercase tracking-widest font-black text-[#d4a743] bg-[#f5e6b8] px-3 py-1 rounded-full">Kamil Ghiza, Kamil Ilaj</span>
               <h2 className="text-3xl md:text-4xl font-serif font-black text-[#1a4d2e]">Tune-Up+ Herbal Capsules Ki Haqeeqat</h2>
-              <p className="text-gray-600 font-semibold">Hum koi jhuuti dawa nahi bachtey! Hamari product jism ke har uzv (organ) ko ash-shifa khubiyan faraham karti hai.</p>
+              <p className="text-gray-600 font-semibold">Hum koi jhuuti dawa nahi bachtey! Hamari product jism ke har uzv (organ) me asli-shifa or khubiyan faraham karti hai.</p>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -523,7 +523,7 @@ export default function App() {
                     </div>
                     <div className="flex justify-between items-center text-sm py-1">
                       <span className="text-gray-500 font-semibold">Price Rating:</span>
-                      <span className="text-green-700 font-extrabold">Affordable for Pakistani Families</span>
+                      <span className="text-green-700 font-extrabold">Affordable for Every Pakistani Families</span>
                     </div>
                   </div>
                 </div>
@@ -546,7 +546,7 @@ export default function App() {
                   </div>
                   <h4 className="font-extrabold text-white text-base">💊 Istemal Karne Ka Tarika (Usages):</h4>
                   <p className="text-xs text-white/80 mt-2 leading-relaxed">
-                    Rozana *ek capsule* subah-nashtey ke baad ya raat ke khaney ke baad, neem garam doodh ya paani ke sath lijiye. Joron ki takleef aur be-had thakawat me 2 capsules lene me koi burai nahi.
+                    Rozana *ek capsule* subah-nashtey se pehly or raat ko Sone(Sleeping) se pehly, neem garam doodh ya paani ke sath lijiye. Joron ki takleef aur be-had thakawat me 2 capsules lene me koi burai nahi.
                   </p>
                 </div>
 
@@ -627,13 +627,13 @@ export default function App() {
                   <span className="text-xs uppercase tracking-widest font-black text-[#d4a743] bg-white/10 px-3 py-1 rounded-full w-fit">Pure Khandani Sehat</span>
                   <h3 className="text-3xl md:text-4xl font-serif font-black leading-tight">Maa, Baap aur Bacho Ke Liye Yaksa Mufeed</h3>
                   <p className="text-white/80 text-sm md:text-base leading-relaxed">
-                    Tune-up+ ek mukammal khandaani nuskha hai jo aapke ghar ke har fard ko samajhta hai. Bachon ki nashonuma se lekar buzurgon ki tawanaai tak, hamara 100% qudrati formula aapki sehat ka raaz hai. Apni family ki sehat par samjhota na karein.
+                    Tune-up+ ek mukammal khandaani nuskha hai jo aapke ghar ke har fard ko samajhta hai. Jawano(16+) ki nashonuma se lekar buzurgon ki tawanaai tak, hamara 100% qudrati formula aapki sehat ka raaz hai. Apni family ki sehat par samjhota na karein.
                   </p>
                   
                   <div className="flex flex-wrap gap-4 pt-2">
                     <div className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-xl text-xs font-semibold">
                       <Users className="w-4 h-4 text-[#d4a743]" />
-                      <span>Kids Boost (6+ Years)</span>
+                      <span>Teenagers Boost (16+ Years)</span>
                     </div>
                     <div className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-xl text-xs font-semibold">
                       <Sparkles className="w-4 h-4 text-[#d4a743]" />
@@ -681,13 +681,13 @@ export default function App() {
               <span className="text-xs uppercase tracking-widest font-black text-[#d4a743] bg-[#f5e6b8] px-3 py-1 rounded-full">Har Maslay Ka Shifa-Bakhsh Hal</span>
               <h2 className="text-3xl md:text-4xl font-serif font-black text-[#1a4d2e]">Faida Tune-Up Plus Ke!</h2>
               <p className="text-gray-600 font-semibold">
-                Clinical testings ke mutabiq ye capsules jism ke mukhtalif hisso me behtar tawanai aur dard ki dafah banty hain.
+                Clinical testings ke mutabiq ye capsules jism ke mukhtalif hisso me behtar tawanai aur dard ki dafah ka sabab banti hain.
               </p>
 
               {/* Age Group Suitability filter tabs to gamify benefits discovery */}
               <div className="flex flex-wrap items-center justify-center gap-2 mt-6">
                 <span className="text-xs font-bold text-gray-500 mr-2 uppercase">Suitable for:</span>
-                {['All', 'Children', 'Adults', 'Elderly'].map((group) => (
+                {['All', 'Teenagers', 'Adults', 'Elderly'].map((group) => (
                   <button
                     key={group}
                     onClick={() => setSelectedAgeGroup(group)}
@@ -697,7 +697,7 @@ export default function App() {
                         : 'bg-white text-gray-600 border-[#e8f5e9] hover:bg-[#e8f5e9]/30'
                     }`}
                   >
-                    {group === 'All' ? '👨‍👩‍👧‍👦 Tamam Logan (All)' : group === 'Children' ? '👶 Becho Ke Liye' : group === 'Adults' ? '👨‍💼 Jawan Ke Liye' : '👵 Buzurgon Ke Liye'}
+                    {group === 'All' ? '👨‍👩‍👧‍👦 Tamam Logan (All)' : group === 'Teenagers' ? '👶 Teenagers Ke Liye' : group === 'Adults' ? '👨‍💼 Jawan Ke Liye' : '👵 Buzurgon Ke Liye'}
                   </button>
                 ))}
               </div>
@@ -961,7 +961,7 @@ export default function App() {
                   <p className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-1">
                     <MapPin className="w-4 h-4 text-[#d4a743]" /> Head Office Location:
                   </p>
-                  <p className="text-sm font-bold text-[#1a4d2e]">TUNE-UP+ Herbal Laboratories, Multan Road, Lahore, Pakistan.</p>
+                  <p className="text-sm font-bold text-[#1a4d2e]">TUNE-UP+ Herbal Laboratories, Korangi Road, Karachi, Pakistan.</p>
                   <div className="w-full h-24 bg-gray-100 rounded-2xl flex items-center justify-center text-xs text-gray-400 border border-dashed border-gray-300">
                     🗺️ Google Pakistan Live Map Placeholder
                   </div>
