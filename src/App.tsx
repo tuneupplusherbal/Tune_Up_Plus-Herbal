@@ -697,7 +697,7 @@ export default function App() {
                         : 'bg-white text-gray-600 border-[#e8f5e9] hover:bg-[#e8f5e9]/30'
                     }`}
                   >
-                    {group === 'All' ? '👨‍👩‍👧‍👦 Tamam Logan (All)' : group === 'Teenagers' ? '👶 Teenagers Ke Liye' : group === 'Adults' ? '👨‍💼 Jawan Ke Liye' : '👵 Buzurgon Ke Liye'}
+                    {group === 'All' ? '👨‍👩‍👧‍👦 Tamam Logan (All)' : group === 'Childerns' ? '👶 Teenagers Ke Liye' : group === 'Adults' ? '👨‍💼 Jawan Ke Liye' : '👵 Buzurgon Ke Liye'}
                   </button>
                 ))}
               </div>
