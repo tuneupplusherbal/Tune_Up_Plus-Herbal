@@ -323,7 +323,7 @@ export default function App() {
 
             <div className="space-y-3 pt-6 border-t mt-auto">
               <a
-                href="https://wa.me/923120805339"
+                href="https://wa.me/923042351501"
                 target="_blank"
                 rel="noreferrer"
                 className="w-full bg-[#d4a743] text-white py-3 px-4 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg"
@@ -406,7 +406,7 @@ export default function App() {
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform" />
                   </button>
                   <a
-                    href="https://wa.me/923120805339"
+                    href="https://wa.me/923042351501"
                     target="_blank"
                     rel="noreferrer"
                     className="w-full sm:w-auto bg-white border-2 border-[#1a4d2e] text-[#1a4d2e] px-8 py-4 rounded-xl font-bold text-base hover:bg-[#e8f5e9] transition-all duration-300 flex items-center justify-center gap-2 transform hover:-translate-y-1"
@@ -417,7 +417,7 @@ export default function App() {
 
                 {/* Trust Badge Bar showing phone right under CTAs */}
                 <p className="text-xs text-gray-500">
-                  Questions? Consult with our Herbal Doctor: <a href="tel:+923120805339" className="text-[#1a4d2e] font-extrabold underline hover:text-[#d4a743]">+92 312 0805339</a>
+                  Questions? Consult with our Herbal Doctor: <a href="tel:+923042351501" className="text-[#1a4d2e] font-extrabold underline hover:text-[#d4a743]">+92 304 2351501</a>
                 </p>
 
               </div>
@@ -877,7 +877,7 @@ export default function App() {
                     
                     {/* Clickable Phone block */}
                     <a 
-                      href="tel:+923120805339" 
+                      href="tel:+923042351501" 
                       className="flex items-start gap-4 p-3 rounded-xl hover:bg-[#e8f5e9]/30 transition-all group"
                     >
                       <div className="w-12 h-12 rounded-xl bg-[#e8f5e9] text-[#1a4d2e] group-hover:bg-[#1a4d2e] group-hover:text-white transition-colors flex items-center justify-center text-xl shrink-0">
@@ -885,7 +885,7 @@ export default function App() {
                       </div>
                       <div>
                         <p className="text-xs font-bold text-gray-500 uppercase tracking-widest">Call or Phone order:</p>
-                        <p className="text-lg font-black text-[#1a4d2e] group-hover:text-[#d4a743] transition-colors">+92 312 0805339</p>
+                        <p className="text-lg font-black text-[#1a4d2e] group-hover:text-[#d4a743] transition-colors">+92 3042351501</p>
                         <span className="text-[10px] text-gray-400">Available Monday to Sunday (9AM - 11PM)</span>
                       </div>
                     </a>
@@ -907,7 +907,7 @@ export default function App() {
 
                     {/* Highly prominent big responsive WhatsApp Button */}
                     <a 
-                      href="https://wa.me/923120805339?text=Assalam-o-Alaikum%20Tune-Up%2B%20Team%2C%20mujhe%20Tune-Up%2B%20capsules%20order%20karne%20hain"
+                      href="https://wa.me/923042351501?text=Assalam-o-Alaikum%20Tune-Up%2B%20Team%2C%20mujhe%20Tune-Up%2B%20capsules%20order%20karne%20hain"
                       target="_blank"
                       rel="noreferrer"
                       className="w-full bg-[#25D366] hover:bg-[#20ba59] text-white py-4 px-6 rounded-xl font-bold flex flex-col items-center justify-center gap-0.5 shadow-md transition-all text-base transform hover:-translate-y-0.5 animate-pulse"
@@ -1257,7 +1257,7 @@ export default function App() {
                           <input
                             type="tel"
                             id="phonefield"
-                            placeholder="e.g. 03120805339"
+                            placeholder="e.g. 03042351501"
                             value={phoneNumber}
                             onChange={(e) => setPhoneNumber(e.target.value)}
                             required
@@ -1521,7 +1521,7 @@ export default function App() {
 
       {/* FLOAT WHATSAPP ACTIVE ICON (Bottom Right) */}
       <a 
-        href="https://wa.me/923120805339"
+        href="https://wa.me/923042351501"
         target="_blank"
         rel="noreferrer"
         className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform cursor-pointer group"
