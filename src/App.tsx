@@ -474,7 +474,7 @@ export default function App() {
                   {/* Trust Badge highlights over Image */}
                   <div className="mt-4 pt-4 border-t border-[#e8f5e9] px-2 flex justify-between items-center text-xs text-gray-500 font-bold">
                     <span className="flex items-center gap-1"><ShieldCheck className="w-4 h-4 text-[#d4a743]" /> 100% Organics</span>
-                    <span className="flex items-center gap-1"><Award className="w-4 h-4 text-[#d4a743]" /> PCSIR Verified</span>
+                    <span className="flex items-center gap-1"><Award className="w-4 h-4 text-[#d4a743]" /> PCSIR Lab Tested</span>
                     <span className="flex items-center gap-1"><Leaf className="w-4 h-4 text-[#d4a743]" /> Safe Natural Formula</span>
                   </div>
 
@@ -541,7 +541,7 @@ export default function App() {
                     </div>
                     <div className="flex justify-between items-center text-sm py-1 border-b border-gray-100">
                       <span className="text-gray-500 font-semibold">Laboratory Validation:</span>
-                      <span className="text-[#d4a743] font-black">PCSIR Tested Approved</span>
+                      <span className="text-[#d4a743] font-black">PCSIR Lab Tested</span>
                     </div>
                     <div className="flex justify-between items-center text-sm py-1">
                       <span className="text-gray-500 font-semibold">Price Rating:</span>
@@ -1048,7 +1048,7 @@ export default function App() {
                       {/* Call-to-action buttons */}
                       <div className="space-y-3">
                         <a
-                          href={`https://wa.me/923120805339?text=${encodeURIComponent(
+                          href={`https://wa.me/923042351501?text=${encodeURIComponent(
                             `Assalam-o-Alaikum Tune-Up+ Team, Mene abhi website se order place kiya hai.\n\n📋 ORDER DETAILS:\n👤 Naam (Name): ${fullName}\n📞 Phone Number: ${phoneNumber}\n📧 Email: ${email}\n📦 Package Selected: ${activePkg.name} (${activePkg.volume})\n🔢 Pack Quantity: ${orderQuantity}\n🧴 Total Bottles: ${totalBottlesCalculated} Bottle(s) (${totalCapsCountCalculated} Capsules)\n💰 Total Bill: Rs. ${totalPriceCalculated.toLocaleString()}\n📍 City: ${city}\n🏠 Address: ${address}\n\nMeharbani farma kar mera order confirm karein!`
                           )}`}
                           target="_blank"
@@ -1252,7 +1252,7 @@ export default function App() {
                           <input
                             type="tel"
                             id="phonefield"
-                            placeholder="e.g. 03120805339"
+                            placeholder="e.g. 03042351501"
                             value={phoneNumber}
                             onChange={(e) => setPhoneNumber(e.target.value)}
                             required
@@ -1518,7 +1518,7 @@ export default function App() {
                 Tune-Up+ is manufactured matching the highest standards. We test our batches in Pakistan's primary PCSIR Labs to conform with federal safety guidelines. Zero steroids guarantee.
               </p>
               <div className="flex gap-2">
-                <span className="bg-white/10 px-2 py-1 rounded text-[9px] font-bold">🛡️ PCSIR Tested</span>
+                <span className="bg-white/10 px-2 py-1 rounded text-[9px] font-bold">🛡️ PCSIR Lab Tested</span>
                 <span className="bg-white/10 px-2 py-1 rounded text-[9px] font-bold">🧪 Steroid-Free</span>
                 <span className="bg-white/10 px-2 py-1 rounded text-[9px] font-bold">🌿 100% Organic</span>
               </div>
