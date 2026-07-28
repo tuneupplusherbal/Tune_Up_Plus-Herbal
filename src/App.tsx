@@ -25,12 +25,11 @@ import {
   ShoppingBag,
   HelpCircle,
   Clock,
-  ThumbsUp,
-  MapPin
+  ThumbsUp
 } from 'lucide-react';
 import { TRUST_BADGES, INGREDIENTS, BENEFITS, TESTIMONIALS, PRODUCT_PACKAGES, FAQS } from './data';
 import { Ingredient, Benefit, Testimonial, ProductPackage } from './types';
-import productImage from './assets/images/Front View -tuneup.png';
+const productImage = "https://tuneupplus.netlify.app/assets/Front%20View%20-tuneup-DA6aBP5H.png";
 import familyImage from './assets/images/tuneup_family_1781618517187.jpg';
 
 export default function App() {
@@ -63,33 +62,40 @@ export default function App() {
   const [userCaptchaAnswer, setUserCaptchaAnswer] = useState('');
   const [captchaError, setCaptchaError] = useState(false);
 
+  // Dynamic pricing and packaging helpers for live inputs
+  const activePkg = PRODUCT_PACKAGES.find(p => p.id === selectedPackage) || PRODUCT_PACKAGES[1];
+  const totalPriceCalculated = activePkg.price * orderQuantity;
+  const totalBottlesCalculated = (activePkg.id === 'starter' ? 1 : activePkg.id === 'couple' ? 2 : 4) * orderQuantity;
+  const totalCapsCountCalculated = activePkg.capsuleCount * orderQuantity;
+
   // Randomize math verification values on mount
   useEffect(() => {
     setNum1(Math.floor(Math.random() * 8) + 2); // 2 to 9
     setNum2(Math.floor(Math.random() * 8) + 2); // 2 to 9
   }, []);
 
-  // Monitor Active Sections & Back to Top button
+  // Monitor Scroll for Back to Top or Active Section Spy (Continuous Scrolling layout style)
   useEffect(() => {
     const handleScroll = () => {
-      // Back to top visibility
+      // 1. Back to top visibility
       if (window.scrollY > 400) {
         setBackToTopVisible(true);
       } else {
         setBackToTopVisible(false);
       }
 
-      // Detect active section
+      // 2. Active section detection (Scroll Spy)
       const sections = ['home', 'product', 'benefits', 'testimonials', 'contact'];
-      const scrollPosition = window.scrollY + 160;
+      const scrollPosition = window.scrollY + 120; // safe header offset
 
       for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const offsetTop = element.offsetTop;
-          const offsetHeight = element.offsetHeight;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+        const el = document.getElementById(section);
+        if (el) {
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+          if (scrollPosition >= top && scrollPosition < top + height) {
             setActiveSection(section);
+            break;
           }
         }
       }
@@ -99,20 +105,21 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-
-
-  // Smooth scroll helper
+  // Smooth-scroll navigation helper for solid single-page experience
   const scrollTo = (id: string) => {
+    setActiveSection(id);
     const element = document.getElementById(id);
     if (element) {
-      const offset = 80; // height of sticky header
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
-
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - 80; // 80px sticky header spacer
+      
       window.scrollTo({
         top: offsetPosition,
+        behavior: 'smooth'
+      });
+    } else {
+      window.scrollTo({
+        top: 0,
         behavior: 'smooth'
       });
     }
@@ -141,10 +148,11 @@ export default function App() {
     setSubmissionError('');
 
     try {
-      const totalBillAmount = 6900 * orderQuantity;
-      const totalBottlesCount = orderQuantity;
-      const totalCapsCount = orderQuantity * 60;
-      const pkgDetail = "Tune-Up+ Herbal Capsules (60 Capsules, 1 Month Course)";
+      const activePkg = PRODUCT_PACKAGES.find(p => p.id === selectedPackage) || PRODUCT_PACKAGES[1];
+      const totalBillAmount = activePkg.price * orderQuantity;
+      const totalBottlesCount = (activePkg.id === 'starter' ? 1 : activePkg.id === 'couple' ? 2 : 4) * orderQuantity;
+      const totalCapsCount = activePkg.capsuleCount * orderQuantity;
+      const pkgDetail = `${activePkg.name} (${activePkg.volume})`;
 
       // FormSubmit Setup Explanation:
       // FormSubmit.co is a zero-backend form endpoint. This submits a JSON payload using AJAX.
@@ -173,7 +181,7 @@ export default function App() {
           _subject: `New Order from Tune-Up+ - Rs. ${totalBillAmount.toLocaleString()} (${fullName})`,
           _template: "box",
           _captcha: "true",
-          _autoresponse: `Assalam-o-Alaikum! Thank you for your order from Tune-Up+. We have received your order details and will contact you shortly for confirmation.\n\n📋 YOUR ORDER SUMMARY (ORDER KI MAALUMAT):\n-------------------------------------\n👤 Customer Name: ${fullName}\n📦 Product Selected: Tune-Up+ Herbal Capsules\n🔢 Quantity ordered: ${orderQuantity} Bottle(s)\n🧴 Total Bottles: ${totalBottlesCount} Bottle(s) (${totalCapsCount} Capsules)\n💰 Total Bill: Rs. ${totalBillAmount.toLocaleString()} (Cash on Delivery + Free Delivery)\n📍 Shipping Address: ${address}, ${city}\n\nOur customer support and health expert team will contact you within just 2 hours to confirm your active order. For any questions or queries, please call or WhatsApp us at +92 312 0805339.\n\nThank you for choosing Tune-Up+ Pakistan!`
+          _autoresponse: `Assalam-o-Alaikum! Thank you for your order from Tune-Up+. We have received your order details and will contact you shortly for confirmation.\n\n📋 YOUR ORDER SUMMARY (ORDER KI MAALUMAT):\n-------------------------------------\n👤 Customer Name: ${fullName}\n📦 Product Selected: Tune-Up+ Herbal Capsules - ${pkgDetail}\n🔢 Quantity ordered: ${orderQuantity} Pack(s)\n🧴 Total Bottles: ${totalBottlesCount} Bottle(s) (${totalCapsCount} Capsules)\n💰 Total Bill: Rs. ${totalBillAmount.toLocaleString()} (Cash on Delivery + Free Delivery)\n📍 Shipping Address: ${address}, ${city}\n\nOur customer support and health expert team will contact you within just 2 hours to confirm your active order. For any questions or queries, please call or WhatsApp us at +92 312 0805339.\n\nThank you for choosing Tune-Up+ Pakistan!`
         })
       });
 
@@ -323,7 +331,7 @@ export default function App() {
 
             <div className="space-y-3 pt-6 border-t mt-auto">
               <a
-                href="https://wa.me/923042351501"
+                href="https://wa.me/923120805339"
                 target="_blank"
                 rel="noreferrer"
                 className="w-full bg-[#d4a743] text-white py-3 px-4 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg"
@@ -347,8 +355,8 @@ export default function App() {
       {/* -------------------- MAIN PAGES WRAPPER -------------------- */}
       <main className="flex-grow">
 
-        {/* ==================== 1. HOME PAGE ==================== */}
-        <section id="home" className="relative pt-6 pb-20 md:py-24 bg-gradient-to-tr from-[#fafdfb] via-[#e8f5e9]/20 to-[#f5e6b8]/15 overflow-hidden">
+            {/* ==================== 1. HOME PAGE ==================== */}
+            <section id="home" className="relative pt-6 pb-20 md:py-24 bg-gradient-to-tr from-[#fafdfb] via-[#e8f5e9]/20 to-[#f5e6b8]/15 overflow-hidden">
           
           {/* Elegant Botanical Deco Blobs */}
           <div className="absolute top-10 left-[-10%] w-[35%] h-[350px] bg-[#1a4d2e]/5 rounded-full blur-[100px] pointer-events-none" />
@@ -373,7 +381,7 @@ export default function App() {
 
                 {/* Subtitle in Roman Urdu explaining USP and targeted families */}
                 <p className="text-lg md:text-xl text-gray-700 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                  Aapki aur aapki family ki tawanai, joron ke dard ka aaram, aur her khandaan ki immunity ke liye <strong className="text-[#1a4d2e]">TUNE-UP+ capsules</strong>. 100% steroid-free aur PCSIR Lab Tested qudrati ghiza jo jism ko andar se chust banti hai.
+                  Aapki aur aapki family ki tawanai, joron ke dard ka aaram, aur her khandaan ki immunity ke liye <strong className="text-[#1a4d2e]">TUNE-UP+ capsules</strong>. 100% steroid-free aur PCSIR certified qudrati ghiza jo jism ko andar se chust banti hai.
                 </p>
 
                 {/* Specific roman urdu tagline list with dynamic ticks */}
@@ -406,7 +414,7 @@ export default function App() {
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform" />
                   </button>
                   <a
-                    href="https://wa.me/923042351501"
+                    href="https://wa.me/923120805339"
                     target="_blank"
                     rel="noreferrer"
                     className="w-full sm:w-auto bg-white border-2 border-[#1a4d2e] text-[#1a4d2e] px-8 py-4 rounded-xl font-bold text-base hover:bg-[#e8f5e9] transition-all duration-300 flex items-center justify-center gap-2 transform hover:-translate-y-1"
@@ -417,7 +425,7 @@ export default function App() {
 
                 {/* Trust Badge Bar showing phone right under CTAs */}
                 <p className="text-xs text-gray-500">
-                  Questions? Consult with our Herbal Doctor: <a href="tel:+923042351501" className="text-[#1a4d2e] font-extrabold underline hover:text-[#d4a743]">+92 304 2351501</a>
+                  Questions? Consult with our Herbal Doctor: <a href="tel:+923120805339" className="text-[#1a4d2e] font-extrabold underline hover:text-[#d4a743]">+92 312 0805339</a>
                 </p>
 
               </div>
@@ -440,7 +448,7 @@ export default function App() {
                     <img 
                       src={productImage} 
                       alt="Tune-Up+ Herbs of Foods Premium Organic Supplement Bottle representing authentic natural wellness"
-                      className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                      className="w-full h-full object-contain p-2 transition-transform duration-700 hover:scale-105"
                       referrerPolicy="no-referrer"
                       onError={(e) => {
                         // Safe fallback just in case
@@ -452,7 +460,7 @@ export default function App() {
                   {/* Trust Badge highlights over Image */}
                   <div className="mt-4 pt-4 border-t border-[#e8f5e9] px-2 flex justify-between items-center text-xs text-gray-500 font-bold">
                     <span className="flex items-center gap-1"><ShieldCheck className="w-4 h-4 text-[#d4a743]" /> 100% Organics</span>
-                    <span className="flex items-center gap-1"><Award className="w-4 h-4 text-[#d4a743]" /> PCSIR Tested</span>
+                    <span className="flex items-center gap-1"><Award className="w-4 h-4 text-[#d4a743]" /> PCSIR Verified</span>
                     <span className="flex items-center gap-1"><Leaf className="w-4 h-4 text-[#d4a743]" /> Safe Natural Formula</span>
                   </div>
 
@@ -494,7 +502,7 @@ export default function App() {
             <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
               <span className="text-xs uppercase tracking-widest font-black text-[#d4a743] bg-[#f5e6b8] px-3 py-1 rounded-full">Kamil Ghiza, Kamil Ilaj</span>
               <h2 className="text-3xl md:text-4xl font-serif font-black text-[#1a4d2e]">Tune-Up+ Herbal Capsules Ki Haqeeqat</h2>
-              <p className="text-gray-600 font-semibold">Hum koi jhuuti dawa nahi bachtey! Hamari product jism ke har uzv (organ) me asli-shifa or khubiyan faraham karti hai.</p>
+              <p className="text-gray-600 font-semibold">Hum koi jhuuti dawa nahi bachtey! Hamari product jism ke har uzv (organ) ko ash-shifa khubiyan faraham karti hai.</p>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -523,7 +531,7 @@ export default function App() {
                     </div>
                     <div className="flex justify-between items-center text-sm py-1">
                       <span className="text-gray-500 font-semibold">Price Rating:</span>
-                      <span className="text-green-700 font-extrabold">Affordable for Every Pakistani Families</span>
+                      <span className="text-green-700 font-extrabold">Affordable for Pakistani Families</span>
                     </div>
                   </div>
                 </div>
@@ -546,7 +554,7 @@ export default function App() {
                   </div>
                   <h4 className="font-extrabold text-white text-base">💊 Istemal Karne Ka Tarika (Usages):</h4>
                   <p className="text-xs text-white/80 mt-2 leading-relaxed">
-                    Rozana *ek capsule* subah-nashtey se pehly or raat ko Sone(Sleeping) se pehly, neem garam doodh ya paani ke sath lijiye. Joron ki takleef aur be-had thakawat me 2 capsules lene me koi burai nahi.
+                    Rozana *ek capsule* subah-nashtey ke baad ya raat ke khaney ke baad, neem garam doodh ya paani ke sath lijiye. Joron ki takleef aur be-had thakawat me 2 capsules lene me koi burai nahi.
                   </p>
                 </div>
 
@@ -627,13 +635,13 @@ export default function App() {
                   <span className="text-xs uppercase tracking-widest font-black text-[#d4a743] bg-white/10 px-3 py-1 rounded-full w-fit">Pure Khandani Sehat</span>
                   <h3 className="text-3xl md:text-4xl font-serif font-black leading-tight">Maa, Baap aur Bacho Ke Liye Yaksa Mufeed</h3>
                   <p className="text-white/80 text-sm md:text-base leading-relaxed">
-                    Tune-up+ ek mukammal khandaani nuskha hai jo aapke ghar ke har fard ko samajhta hai. Jawano(16+) ki nashonuma se lekar buzurgon ki tawanaai tak, hamara 100% qudrati formula aapki sehat ka raaz hai. Apni family ki sehat par samjhota na karein.
+                    Tune-up+ ek mukammal khandaani nuskha hai jo aapke ghar ke har fard ko samajhta hai. Bachon ki nashonuma se lekar buzurgon ki tawanaai tak, hamara 100% qudrati formula aapki sehat ka raaz hai. Apni family ki sehat par samjhota na karein.
                   </p>
                   
                   <div className="flex flex-wrap gap-4 pt-2">
                     <div className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-xl text-xs font-semibold">
                       <Users className="w-4 h-4 text-[#d4a743]" />
-                      <span>Teenagers Boost (16+ Years)</span>
+                      <span>Kids Boost (6+ Years)</span>
                     </div>
                     <div className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-xl text-xs font-semibold">
                       <Sparkles className="w-4 h-4 text-[#d4a743]" />
@@ -672,7 +680,6 @@ export default function App() {
 
           </div>
         </section>
-
         {/* ==================== 3. BENEFITS PAGE ==================== */}
         <section id="benefits" className="py-20 bg-gradient-to-b from-[#fafdfb] via-[#e8f5e9]/20 to-white border-t border-[#e8f5e9]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -681,13 +688,13 @@ export default function App() {
               <span className="text-xs uppercase tracking-widest font-black text-[#d4a743] bg-[#f5e6b8] px-3 py-1 rounded-full">Har Maslay Ka Shifa-Bakhsh Hal</span>
               <h2 className="text-3xl md:text-4xl font-serif font-black text-[#1a4d2e]">Faida Tune-Up Plus Ke!</h2>
               <p className="text-gray-600 font-semibold">
-                Clinical testings ke mutabiq ye capsules jism ke mukhtalif hisso me behtar tawanai aur dard ki dafah ka sabab banti hain.
+                Clinical testings ke mutabiq ye capsules jism ke mukhtalif hisso me behtar tawanai aur dard ki dafah banty hain.
               </p>
 
               {/* Age Group Suitability filter tabs to gamify benefits discovery */}
               <div className="flex flex-wrap items-center justify-center gap-2 mt-6">
                 <span className="text-xs font-bold text-gray-500 mr-2 uppercase">Suitable for:</span>
-                {['All', 'Teenagers', 'Adults', 'Elderly'].map((group) => (
+                {['All', 'Children', 'Adults', 'Elderly'].map((group) => (
                   <button
                     key={group}
                     onClick={() => setSelectedAgeGroup(group)}
@@ -697,7 +704,7 @@ export default function App() {
                         : 'bg-white text-gray-600 border-[#e8f5e9] hover:bg-[#e8f5e9]/30'
                     }`}
                   >
-                    {group === 'All' ? '👨‍👩‍👧‍👦 Tamam Logan (All)' : group === 'Childerns' ? '👶 Teenagers Ke Liye' : group === 'Adults' ? '👨‍💼 Jawan Ke Liye' : '👵 Buzurgon Ke Liye'}
+                    {group === 'All' ? '👨‍👩‍👧‍👦 Tamam Logan (All)' : group === 'Children' ? '👶 Becho Ke Liye' : group === 'Adults' ? '👨‍💼 Jawan Ke Liye' : '👵 Buzurgon Ke Liye'}
                   </button>
                 ))}
               </div>
@@ -770,7 +777,6 @@ export default function App() {
 
           </div>
         </section>
-
         {/* ==================== 4. TESTIMONIALS SECTION ==================== */}
         <section id="testimonials" className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -851,126 +857,76 @@ export default function App() {
 
           </div>
         </section>
-
         {/* ==================== 5. CONTACT / ORDER CHECK-OUT PAGE ==================== */}
-        <section id="contact" className="py-20 bg-gradient-to-tr from-[#fafdfb] via-[#e8f5e9]/30 to-[#f5e6b8]/10 border-t border-[#e8f5e9]">
+        <section id="contact" className="py-10 sm:py-16 md:py-20 bg-gradient-to-tr from-[#fafdfb] via-[#e8f5e9]/30 to-[#f5e6b8]/10 border-t border-[#e8f5e9]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
-            <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-              <span className="text-xs uppercase tracking-widest font-black text-white bg-red-600 px-3 py-1 rounded-full animate-pulse">Limited Stock • Cash on Delivery</span>
-              <h2 className="text-3xl md:text-4xl font-serif font-black text-[#1a4d2e]">Order Form &amp; Asli Raabta Page</h2>
-              <p className="text-gray-600 font-semibold">
+            <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12 lg:mb-16 space-y-2 sm:space-y-4">
+              <span className="text-[10px] sm:text-xs uppercase tracking-widest font-black text-white bg-red-600 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full animate-pulse">Limited Stock • Cash on Delivery</span>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-black text-[#1a4d2e]">Order Form &amp; Asli Raabta Page</h2>
+              <p className="text-xs sm:text-sm md:text-base text-gray-600 font-semibold">
                 Neeche dia gaya form pur karain, "WhatsApp Par Submit Karein" dabaain takay aapka order foran lock ho jaye.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 lg:gap-10 items-start">
               
-              {/* Direct Support Information Panel & Badges (Left Column) */}
-              <div className="lg:col-span-5 space-y-6">
-                
-                {/* Contact numbers visual card */}
-                <div className="bg-white p-8 rounded-3xl border border-[#e8f5e9] shadow-sm space-y-6">
-                  <h3 className="text-xl font-serif font-black text-[#1a4d2e] border-b pb-3 border-[#e8f5e9]">Direct Contact details:</h3>
+              {/* 1. Direct Support Information Panel (Order 1 on Mobile, Left Column on Desktop) */}
+              <div className="order-1 lg:order-1 lg:col-span-5">
+                <div className="bg-white p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl border border-[#e8f5e9] shadow-sm space-y-3 sm:space-y-5">
+                  <h3 className="text-base sm:text-xl font-serif font-black text-[#1a4d2e] border-b pb-2 sm:pb-3 border-[#e8f5e9]">Direct Contact details:</h3>
                   
-                  <div className="space-y-4">
+                  <div className="space-y-2 sm:space-y-3">
                     
                     {/* Clickable Phone block */}
                     <a 
-                      href="tel:+923042351501" 
-                      className="flex items-start gap-4 p-3 rounded-xl hover:bg-[#e8f5e9]/30 transition-all group"
+                      href="tel:+923120805339" 
+                      className="flex items-center sm:items-start gap-3 p-2 sm:p-3 rounded-xl hover:bg-[#e8f5e9]/30 transition-all group"
                     >
-                      <div className="w-12 h-12 rounded-xl bg-[#e8f5e9] text-[#1a4d2e] group-hover:bg-[#1a4d2e] group-hover:text-white transition-colors flex items-center justify-center text-xl shrink-0">
-                        <PhoneCall className="w-6 h-6" />
+                      <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-[#e8f5e9] text-[#1a4d2e] group-hover:bg-[#1a4d2e] group-hover:text-white transition-colors flex items-center justify-center text-base sm:text-xl shrink-0">
+                        <PhoneCall className="w-4 h-4 sm:w-5 sm:h-5" />
                       </div>
                       <div>
-                        <p className="text-xs font-bold text-gray-500 uppercase tracking-widest">Call or Phone order:</p>
-                        <p className="text-lg font-black text-[#1a4d2e] group-hover:text-[#d4a743] transition-colors">+92 3042351501</p>
-                        <span className="text-[10px] text-gray-400">Available Monday to Sunday (9AM - 11PM)</span>
+                        <p className="text-[10px] sm:text-xs font-bold text-gray-500 uppercase tracking-widest">Call or Phone order:</p>
+                        <p className="text-sm sm:text-lg font-black text-[#1a4d2e] group-hover:text-[#d4a743] transition-colors">+92 312 0805339</p>
+                        <span className="text-[9px] sm:text-[10px] text-gray-400">Available Monday to Sunday (9AM - 11PM)</span>
                       </div>
                     </a>
 
                     {/* Clickable Email block */}
                     <a 
                       href="mailto:tune.up.plus.herbal@gmail.com" 
-                      className="flex items-start gap-4 p-3 rounded-xl hover:bg-[#e8f5e9]/30 transition-all group"
+                      className="flex items-center sm:items-start gap-3 p-2 sm:p-3 rounded-xl hover:bg-[#e8f5e9]/30 transition-all group"
                     >
-                      <div className="w-12 h-12 rounded-xl bg-[#e8f5e9] text-[#1a4d2e] group-hover:bg-[#1a4d2e] group-hover:text-white transition-colors flex items-center justify-center text-xl shrink-0">
-                        <Mail className="w-6 h-6" />
+                      <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-[#e8f5e9] text-[#1a4d2e] group-hover:bg-[#1a4d2e] group-hover:text-white transition-colors flex items-center justify-center text-base sm:text-xl shrink-0">
+                        <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
                       </div>
                       <div className="break-all">
-                        <p className="text-xs font-bold text-gray-500 uppercase tracking-widest">Official Support Email:</p>
-                        <p className="text-sm font-black text-[#1a4d2e] group-hover:text-[#d4a743] transition-colors">tune.up.plus.herbal@gmail.com</p>
-                        <span className="text-[10px] text-gray-400">Any business queries or compliance reports</span>
+                        <p className="text-[10px] sm:text-xs font-bold text-gray-500 uppercase tracking-widest">Official Support Email:</p>
+                        <p className="text-xs sm:text-sm font-black text-[#1a4d2e] group-hover:text-[#d4a743] transition-colors">tune.up.plus.herbal@gmail.com</p>
+                        <span className="text-[9px] sm:text-[10px] text-gray-400">Any business queries or compliance reports</span>
                       </div>
                     </a>
 
-                    {/* Highly prominent big responsive WhatsApp Button */}
+                    {/* Highly prominent responsive WhatsApp Button */}
                     <a 
-                      href="https://wa.me/923042351501?text=Assalam-o-Alaikum%20Tune-Up%2B%20Team%2C%20mujhe%20Tune-Up%2B%20capsules%20order%20karne%20hain"
+                      href="https://wa.me/923120805339?text=Assalam-o-Alaikum%20Tune-Up%2B%20Team%2C%20mujhe%20Tune-Up%2B%20capsules%20order%20karne%20hain"
                       target="_blank"
                       rel="noreferrer"
-                      className="w-full bg-[#25D366] hover:bg-[#20ba59] text-white py-4 px-6 rounded-xl font-bold flex flex-col items-center justify-center gap-0.5 shadow-md transition-all text-base transform hover:-translate-y-0.5 animate-pulse"
+                      className="w-full bg-[#25D366] hover:bg-[#20ba59] text-white py-2.5 sm:py-3.5 px-4 sm:px-6 rounded-xl font-bold flex flex-col items-center justify-center gap-0.5 shadow-md transition-all text-xs sm:text-base transform hover:-translate-y-0.5"
                     >
-                      <span className="flex items-center gap-2 font-black text-sm sm:text-base">
-                        <span className="text-2xl">💬</span> Direct WhatsApp Par Order Karein
+                      <span className="flex items-center gap-1.5 font-black text-xs sm:text-base">
+                        <span className="text-lg sm:text-2xl">💬</span> Direct WhatsApp Par Order Karein
                       </span>
-                      <span className="text-[10px] sm:text-[11px] font-medium opacity-90">Chat par details bhej kar apna order lagwayain</span>
+                      <span className="text-[9px] sm:text-[11px] font-medium opacity-90">Chat par details bhej kar apna order lagwayain</span>
                     </a>
 
                   </div>
                 </div>
-
-                {/* Delivery details trust section (Free Delivery, Private packaging, COD info) */}
-                <div className="bg-gradient-to-br from-[#1a4d2e] to-[#255e3b] text-white p-8 rounded-3xl space-y-6 shadow-xl relative overflow-hidden">
-                  <div className="absolute right-0 bottom-0 opacity-10">
-                    <CheckCircle className="w-48 h-48" />
-                  </div>
-
-                  <h3 className="text-lg font-serif font-black text-[#d4a743]">📦 Delivery Information &amp; Secrets</h3>
-                  
-                  <div className="space-y-4 text-xs font-semibold">
-                    <div className="flex gap-3">
-                      <span className="text-xl">🚚</span>
-                      <div>
-                        <p className="text-[#d4a743] font-bold">100% Free Shipping</p>
-                        <p className="text-white/80">Pure Pakistan (including small, rural and border sectors) has free home deliveries matching full-scale guidelines.</p>
-                      </div>
-                    </div>
-
-                    <div className="flex gap-3">
-                      <span className="text-xl">💵</span>
-                      <div>
-                        <p className="text-[#d4a743] font-bold">Cash On Delivery (COD)</p>
-                        <p className="text-white/80">Only pay when you officially see and hold your parcel. No advance bank transactions necessary.</p>
-                      </div>
-                    </div>
-
-                    <div className="flex gap-3">
-                      <span className="text-xl">🔒</span>
-                      <div>
-                        <p className="text-[#d4a743] font-bold">Private Packaging (Raazdari Delivery)</p>
-                        <p className="text-white/80">Your product is carefully packed in fully plain boxes or opaque mailers with zero product-level descriptions outside.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Placeholder mapping box or address location */}
-                <div className="bg-white p-6 rounded-3xl border border-[#e8f5e9] shadow-sm space-y-3">
-                  <p className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-1">
-                    <MapPin className="w-4 h-4 text-[#d4a743]" /> Head Office Location:
-                  </p>
-                  <p className="text-sm font-bold text-[#1a4d2e]">TUNE-UP+ Herbal Laboratories, Korangi Road, Karachi, Pakistan.</p>
-                  <div className="w-full h-24 bg-gray-100 rounded-2xl flex items-center justify-center text-xs text-gray-400 border border-dashed border-gray-300">
-                    🗺️ Google Pakistan Live Map Placeholder
-                  </div>
-                </div>
-
               </div>
 
-              {/* Dynamic interactive form or Confirmation Receipt (Right Column) */}
-              <div className="lg:col-span-7">
+              {/* 2. Dynamic interactive form or Confirmation Receipt (Order 2 on Mobile, Right Column on Desktop) */}
+              <div className="order-2 lg:order-2 lg:col-span-7 lg:row-span-2">
                 <div className="bg-white p-6 sm:p-10 rounded-[32px] border border-[#e8f5e9] shadow-md relative transition-all duration-500 overflow-hidden">
                   
                   {orderSubmitted ? (
@@ -1033,18 +989,18 @@ export default function App() {
                           <div className="space-y-2 pb-3 border-b border-gray-100 bg-gray-50/50 p-2.5 rounded-xl">
                             <div className="flex justify-between items-center text-xs font-bold text-gray-500">
                               <span>Product Selected:</span>
-                              <span className="text-[#1a4d2e] font-black">
-                                Tune-Up+ Herbal Capsules
+                              <span className="text-[#1a4d2e] font-black text-right">
+                                {activePkg.name}
                               </span>
                             </div>
                             <div className="flex justify-between items-center text-xs font-bold text-gray-500">
                               <span>Quantity (Tadaad):</span>
-                              <span className="text-gray-800 font-extrabold">{orderQuantity} Bottle{orderQuantity > 1 ? 's' : ''}</span>
+                              <span className="text-gray-800 font-extrabold">{orderQuantity} Pack{orderQuantity > 1 ? 's' : ''}</span>
                             </div>
                             <div className="flex justify-between items-center text-xs font-bold text-gray-500">
                               <span>Dose & volume:</span>
-                              <span className="text-gray-500 font-medium">
-                                {orderQuantity * 60} Capsules ({orderQuantity} Month Course)
+                              <span className="text-gray-500 font-medium text-right">
+                                {totalBottlesCalculated} Bottle{totalBottlesCalculated > 1 ? 's' : ''} ({totalCapsCountCalculated} Capsules)
                               </span>
                             </div>
                           </div>
@@ -1056,7 +1012,7 @@ export default function App() {
                             </div>
                             <div className="text-right">
                               <span className="text-xl font-black text-[#1a4d2e] bg-[#e8f5e9] px-3.5 py-1.5 rounded-xl border border-[#1a4d2e]/10">
-                                Rs. {(6900 * orderQuantity).toLocaleString()}
+                                Rs. {totalPriceCalculated.toLocaleString()}
                               </span>
                             </div>
                           </div>
@@ -1074,7 +1030,7 @@ export default function App() {
                       <div className="space-y-3">
                         <a
                           href={`https://wa.me/923120805339?text=${encodeURIComponent(
-                            `Assalam-o-Alaikum Tune-Up+ Team, Mene abhi website se order place kiya hai.\n\n📋 ORDER DETAILS:\n👤 Naam (Name): ${fullName}\n📞 Phone Number: ${phoneNumber}\n📧 Email: ${email}\n📦 Product Selected: Tune-Up+ Herbal Capsules\n🔢 Quantity (Tadaad): ${orderQuantity} Bottle(s)\n🧴 Total: ${orderQuantity} Bottle(s) (${orderQuantity * 60} Capsules)\n💰 Total Bill: Rs. ${(6900 * orderQuantity).toLocaleString()}\n📍 City: ${city}\n🏠 Address: ${address}\n\nMeharbani farma kar mera order confirm card check karein!`
+                            `Assalam-o-Alaikum Tune-Up+ Team, Mene abhi website se order place kiya hai.\n\n📋 ORDER DETAILS:\n👤 Naam (Name): ${fullName}\n📞 Phone Number: ${phoneNumber}\n📧 Email: ${email}\n📦 Package Selected: ${activePkg.name} (${activePkg.volume})\n🔢 Pack Quantity: ${orderQuantity}\n🧴 Total Bottles: ${totalBottlesCalculated} Bottle(s) (${totalCapsCountCalculated} Capsules)\n💰 Total Bill: Rs. ${totalPriceCalculated.toLocaleString()}\n📍 City: ${city}\n🏠 Address: ${address}\n\nMeharbani farma kar mera order confirm karein!`
                           )}`}
                           target="_blank"
                           rel="noreferrer"
@@ -1123,70 +1079,85 @@ export default function App() {
                         <p className="text-xs text-gray-500 mt-1">Free delivery and private packaging. Cash on delivery standard across regions.</p>
                       </div>
 
-                      {/* 1. Single Product pricing & Details Showcase */}
+                      {/* 1. Dynamic Interactive package selection cards */}
                       <div className="space-y-3">
-                        <label className="block text-sm font-bold text-gray-700">Selected Supplement (Muntakhib Karda Product) *</label>
+                        <label className="block text-sm font-bold text-gray-700">Choose Your Package (Apna Discount Pack Select Karein) *</label>
                         
-                        <div className="bg-gradient-to-tr from-[#1a4d2e] to-[#2e6e47] text-white p-6 rounded-2xl shadow-md space-y-4 border border-[#d4a743]/30 relative overflow-hidden">
-                          <div className="absolute right-[-10px] top-[-10px] w-24 h-24 bg-white/5 rounded-full blur-xl pointer-events-none" />
-                          <div className="flex justify-between items-start">
-                            <div>
-                              <span className="bg-[#d4a743] text-white text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                                Original Product
-                              </span>
-                              <h4 className="font-serif font-black text-xl text-white mt-1.5">
-                                Tune-Up+ Herbal Capsules
-                              </h4>
-                              <p className="text-xs text-emerald-100/90 font-medium">
-                                60 Capsules, 1 Month Course (1 Bottle)
-                              </p>
-                            </div>
-                            <div className="text-right">
-                              <span className="text-xs text-[#d4a743] font-bold block uppercase tracking-wider">Price</span>
-                              <span className="text-2xl font-black text-[#d4a743]">Rs. 6,900</span>
-                              <span className="text-[10px] text-emerald-200 block">per bottle</span>
-                            </div>
-                          </div>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                          {PRODUCT_PACKAGES.map((pkg) => {
+                            const isSelected = selectedPackage === pkg.id;
+                            return (
+                              <div
+                                key={pkg.id}
+                                onClick={() => {
+                                  setSelectedPackage(pkg.id);
+                                }}
+                                className={`cursor-pointer relative p-4 rounded-2xl border-2 transition-all duration-300 flex flex-col justify-between space-y-3 ${
+                                  isSelected
+                                    ? 'border-[#1a4d2e] bg-[#e8f5e9]/20 shadow-md ring-1 ring-[#1a4d2e]'
+                                    : 'border-gray-200 bg-white hover:border-[#d4a743]/50 hover:bg-gray-50'
+                                }`}
+                              >
+                                {pkg.badge && (
+                                  <span className={`absolute top-[-10px] left-4 text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md text-white ${
+                                    pkg.popular ? 'bg-amber-500' : 'bg-[#1a4d2e]'
+                                  }`}>
+                                    {pkg.badge}
+                                  </span>
+                                )}
+                                <div>
+                                  <h4 className="font-extrabold text-sm text-gray-900 mt-1">{pkg.name}</h4>
+                                  <p className="text-[11px] text-gray-500 font-medium">{pkg.duration}</p>
+                                </div>
+                                
+                                <div className="pt-2 border-t border-gray-100 font-sans">
+                                  <div className="flex items-baseline gap-1.5">
+                                    <span className="text-lg font-black text-[#1a4d2e]">Rs. {pkg.price.toLocaleString()}</span>
+                                    <span className="text-[10px] text-gray-400 line-through">Rs. {pkg.originalPrice.toLocaleString()}</span>
+                                  </div>
+                                  <p className="text-[10px] text-amber-600 font-extrabold mt-0.5">🔥 Bachat: Rs. {pkg.savedAmount.toLocaleString()}</p>
+                                  <span className="text-[10px] bg-[#e8f5e9] text-[#1a4d2e] px-1.5 py-0.5 rounded font-black mt-1.5 inline-block">
+                                    {pkg.volume}
+                                  </span>
+                                </div>
+                              </div>
+                            );
+                          })}
                         </div>
                       </div>
 
-                      {/* 2. Quantity selector dropdown (1 to 5 bottleneck) */}
+                      {/* 2. Quantity selector dropdown (1 to 5 sets multiplier) */}
                       <div className="space-y-4">
                         <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
                           <div>
-                            <span className="text-gray-700 font-extrabold text-sm sm:text-xs">Kitni Bottles Chahiyen? (Order Quantity) *</span>
-                            <p className="text-gray-400 text-[10px]">Aap jitni bottles chahte hain unki total tadaad select karein.</p>
+                            <span className="text-gray-700 font-extrabold text-sm sm:text-xs">Kitne Packs Chahiyen? (Package Quantity) *</span>
+                            <p className="text-gray-400 text-[10px]">Aap is package ke kitne sets mangwana chahte hain?</p>
                           </div>
                           <select
-                            name="Quantity"
                             value={orderQuantity}
                             onChange={(e) => setOrderQuantity(parseInt(e.target.value, 10))}
                             required
                             className="bg-white border border-gray-200 text-sm font-extrabold text-[#1a4d2e] rounded-xl px-4 py-2.5 focus:border-[#1a4d2e] focus:outline-none focus:ring-1 focus:ring-[#1a4d2e] transition-all cursor-pointer min-w-[150px]"
                           >
-                            <option value="1">1 Bottle - Rs. 6,900</option>
-                            <option value="2">2 Bottles - Rs. 13,800</option>
-                            <option value="3">3 Bottles - Rs. 20,700</option>
-                            <option value="4">4 Bottles - Rs. 27,600</option>
-                            <option value="5">5 Bottles - Rs. 34,500</option>
+                            <option value="1">1 Pack Set</option>
+                            <option value="2">2 Pack Sets</option>
+                            <option value="3">3 Pack Sets</option>
+                            <option value="4">4 Pack Sets</option>
+                            <option value="5">5 Pack Sets</option>
                           </select>
                         </div>
 
                         {/* Hidden input fields as requested for formsubmit compliance */}
-                        <input type="hidden" name="Quantity" value={orderQuantity} />
-                        <input type="hidden" name="Total Price" value={`Rs. ${(6900 * orderQuantity).toLocaleString()}`} />
-                        <input type="hidden" name="Total Bottles" value={orderQuantity} />
-                        <input type="hidden" name="Total Capsules" value={orderQuantity * 60} />
+                        <input type="hidden" name="Selected Package" value={`${activePkg.name} (${activePkg.volume})`} />
+                        <input type="hidden" name="Package Quantity" value={orderQuantity} />
+                        <input type="hidden" name="Total Price" value={`Rs. ${totalPriceCalculated.toLocaleString()}`} />
+                        <input type="hidden" name="Total Bottles" value={totalBottlesCalculated} />
+                        <input type="hidden" name="Total Capsules" value={totalCapsCountCalculated} />
 
                         {/* Interactive Realtime Pricing Breakdown */}
                         {(() => {
-                          const pricePerBottle = 6900;
-                          const totalBottles = orderQuantity;
-                          const totalCapsCount = orderQuantity * 60;
-                          const totalBillAmount = pricePerBottle * orderQuantity;
-
                           // Urdu translation for details
-                          const urduDetails = `مجموعی طور پر آپ کو ${totalBottles} بوتل${totalBottles > 1 ? 'یں' : ''} (${totalCapsCount} کیپسول) ملیں ${totalBottles > 1 ? 'گی' : 'گا'} جو کہ ${orderQuantity} مہینے کے کورس کے لیے کافی ہے۔`;
+                          const urduDetails = `مجموعی طور پر آپ کو ${totalBottlesCalculated} بوتل${totalBottlesCalculated > 1 ? 'یں' : ''} (${totalCapsCountCalculated} کیپسول) ملیں ${totalBottlesCalculated > 1 ? 'گی' : 'گا'} جو کہ آپ کی منتخب کردہ ڈوز ${activePkg.duration} کے مطابق ہے۔`;
 
                           return (
                             <div className="bg-[#e8f5e9]/20 border border-[#e8f5e9] p-4 sm:p-5 rounded-2xl text-xs space-y-3.5 transform transition-all duration-300">
@@ -1201,26 +1172,31 @@ export default function App() {
 
                               <div className="grid grid-cols-2 gap-y-2.5 font-semibold text-gray-700">
                                 <div className="text-gray-500">Selected Product:</div>
-                                <div className="text-right text-[#1a4d2e] font-black">Tune-Up+ Herbal Capsules</div>
+                                <div className="text-right text-[#1a4d2e] font-black">{activePkg.name}</div>
+
+                                <div className="text-gray-500 font-medium">Selected Volume:</div>
+                                <div className="text-right font-black text-gray-800 bg-white/80 px-2.5 py-0.5 rounded border inline-block ml-auto">
+                                  {activePkg.volume}
+                                </div>
 
                                 <div className="text-gray-500 font-medium">Order Quantity:</div>
-                                <div className="text-right font-black text-gray-800 bg-white/80 px-2.5 py-0.5 rounded border inline-block ml-auto">
-                                  {orderQuantity}x Bottle{orderQuantity > 1 ? 's' : ''}
+                                <div className="text-right text-gray-800 font-black">
+                                  {orderQuantity}x Pack Set{orderQuantity > 1 ? 's' : ''}
                                 </div>
 
                                 <div className="text-gray-500 font-medium">Total Bottles & Capsules:</div>
                                 <div className="text-right font-black text-[#1a4d2e] text-sm sm:text-xs">
-                                  {totalBottles} Bottle{totalBottles > 1 ? 's' : ''} ({totalCapsCount} Capsules)
+                                  {totalBottlesCalculated} Bottle{totalBottlesCalculated > 1 ? 's' : ''} ({totalCapsCountCalculated} Capsules)
                                 </div>
 
                                 <div className="text-gray-500 font-medium">Dose Course Duration:</div>
                                 <div className="text-right font-black text-emerald-800">
-                                  {orderQuantity} Month{orderQuantity > 1 ? 's' : ''} Course ({orderQuantity} Mahine Ka Course)
+                                  {activePkg.duration}
                                 </div>
 
                                 <div className="text-[#193a23] font-extrabold text-sm border-t border-emerald-200/40 pt-2 shrink-0">Total Bill Amount (COD):</div>
                                 <div className="text-right text-base font-black text-[#1a4d2e] border-t border-emerald-200/40 pt-2">
-                                  Rs. {totalBillAmount.toLocaleString()}
+                                  Rs. {totalPriceCalculated.toLocaleString()}
                                 </div>
                               </div>
 
@@ -1257,7 +1233,7 @@ export default function App() {
                           <input
                             type="tel"
                             id="phonefield"
-                            placeholder="e.g. 03042351501"
+                            placeholder="e.g. 03120805339"
                             value={phoneNumber}
                             onChange={(e) => setPhoneNumber(e.target.value)}
                             required
@@ -1415,6 +1391,43 @@ export default function App() {
                 </div>
               </div>
 
+              {/* 3. Delivery Details Trust Box (Order 3 on Mobile, Left Column on Desktop) */}
+              <div className="order-3 lg:order-3 lg:col-span-5">
+                <div className="bg-gradient-to-br from-[#1a4d2e] to-[#255e3b] text-white p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl space-y-3 sm:space-y-6 shadow-xl relative overflow-hidden">
+                  <div className="absolute right-0 bottom-0 opacity-10">
+                    <CheckCircle className="w-32 h-32 sm:w-48 sm:h-48" />
+                  </div>
+
+                  <h3 className="text-sm sm:text-lg font-serif font-black text-[#d4a743]">📦 Delivery Information &amp; Secrets</h3>
+                  
+                  <div className="space-y-3 sm:space-y-4 text-[11px] sm:text-xs font-semibold">
+                    <div className="flex gap-2.5 sm:gap-3">
+                      <span className="text-base sm:text-xl shrink-0">🚚</span>
+                      <div>
+                        <p className="text-[#d4a743] font-bold text-xs sm:text-sm">100% Free Shipping</p>
+                        <p className="text-white/80 text-[10px] sm:text-xs leading-snug">Pure Pakistan (including small, rural and border sectors) has free home deliveries matching full-scale guidelines.</p>
+                      </div>
+                    </div>
+
+                    <div className="flex gap-2.5 sm:gap-3">
+                      <span className="text-base sm:text-xl shrink-0">💵</span>
+                      <div>
+                        <p className="text-[#d4a743] font-bold text-xs sm:text-sm">Cash On Delivery (COD)</p>
+                        <p className="text-white/80 text-[10px] sm:text-xs leading-snug">Only pay when you officially see and hold your parcel. No advance bank transactions necessary.</p>
+                      </div>
+                    </div>
+
+                    <div className="flex gap-2.5 sm:gap-3">
+                      <span className="text-base sm:text-xl shrink-0">🔒</span>
+                      <div>
+                        <p className="text-[#d4a743] font-bold text-xs sm:text-sm">Private Packaging (Raazdari Delivery)</p>
+                        <p className="text-white/80 text-[10px] sm:text-xs leading-snug">Your product is carefully packed in fully plain boxes or opaque mailers with zero product-level descriptions outside.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
           </div>
@@ -1521,7 +1534,7 @@ export default function App() {
 
       {/* FLOAT WHATSAPP ACTIVE ICON (Bottom Right) */}
       <a 
-        href="https://wa.me/923042351501"
+        href="https://wa.me/923120805339"
         target="_blank"
         rel="noreferrer"
         className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform cursor-pointer group"

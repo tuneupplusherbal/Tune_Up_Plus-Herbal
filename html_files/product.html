@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ur" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TUNE-UP+ Herbal Capsules | Product details</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind Colors & Fonts Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a4d2e', // Dark Green
+                        gold: '#d4a743',    // Gold
+                        lightGreen: '#e8f5e9' // Light Green
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['Playfair Display', 'Georgia', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,400&display=swap');
+    </style>
+</head>
+<body class="bg-[#fafdfb] text-gray-800 font-sans min-h-screen flex flex-col">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-lightGreen shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="index.html" class="flex flex-col">
+                <span class="text-xl md:text-2xl font-extrabold tracking-tight text-primary flex items-center gap-1">
+                    TUNE-UP<span class="text-gold">+</span>
+                </span>
+                <span class="text-[9px] uppercase tracking-widest font-black text-gold leading-none text-right">
+                    HERBS OF FOODS
+                </span>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden lg:flex items-center space-x-1">
+                <a href="index.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-gray-600 hover:text-primary hover:bg-lightGreen transition-all">Home</a>
+                <a href="product.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-primary bg-lightGreen transition-all">Product</a>
+                <a href="benefits.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-gray-600 hover:text-primary hover:bg-lightGreen transition-all">Benefits</a>
+                <a href="testimonials.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-gray-600 hover:text-primary hover:bg-lightGreen transition-all">Reviews</a>
+                <a href="contact.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-gray-600 hover:text-primary hover:bg-lightGreen transition-all">Order Now</a>
+            </nav>
+
+            <!-- Buttons in Header -->
+            <div class="hidden lg:flex items-center space-x-3">
+                <a href="https://wa.me/923120805339" target="_blank" class="bg-[#25c366] text-white px-4 py-2.5 rounded-lg font-bold text-xs flex items-center gap-1.5 shadow-md hover:bg-[#20b359] transition-all">
+                    <i class="fab fa-whatsapp text-sm"></i> WhatsApp
+                </a>
+                <a href="contact.html" class="bg-primary text-white px-4.5 py-2.5 rounded-lg font-bold text-xs flex items-center gap-1.5 shadow-md hover:bg-gold transition-all">
+                    <i class="fas fa-shopping-cart text-xs"></i> Order Now
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu-btn" class="lg:hidden p-2 text-primary hover:bg-lightGreen rounded-lg transition-all">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer Navigation -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-lightGreen p-4 space-y-2">
+            <a href="index.html" class="block px-4 py-2.5 rounded-lg text-sm font-semibold text-gray-600 hover:text-primary hover:bg-lightGreen">Home</a>
+            <a href="product.html" class="block px-4 py-2.5 rounded-lg text-sm font-semibold text-primary bg-lightGreen">Product Details</a>
+            <a href="benefits.html" class="block px-4 py-2.5 rounded-lg text-sm font-semibold text-gray-600 hover:text-primary hover:bg-lightGreen">Health Benefits</a>
+            <a href="testimonials.html" class="block px-4 py-2.5 rounded-lg text-sm font-semibold text-gray-600 hover:text-primary hover:bg-lightGreen">Customer Reviews</a>
+            <a href="contact.html" class="block px-4 py-2.5 rounded-lg text-sm font-semibold text-gray-600 hover:text-primary hover:bg-lightGreen">Order Online</a>
+            <div class="pt-4 border-t border-lightGreen flex gap-2">
+                <a href="https://wa.me/923120805339" class="flex-1 bg-[#25c366] text-white py-2.5 rounded-lg text-center font-bold text-xs flex items-center justify-center gap-1.5">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+                <a href="contact.html" class="flex-1 bg-primary text-white py-2.5 rounded-lg text-center font-bold text-xs flex items-center justify-center gap-1.5">
+                    <i class="fas fa-shopping-cart"></i> Order Now
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- PRODUCT DETAIL VIEWS -->
+    <main class="flex-grow py-12 md:py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                
+                <!-- Left: Product Image & Badges -->
+                <div class="lg:col-span-6 flex flex-col gap-6">
+                    <div class="bg-white rounded-[32px] p-6 shadow-xl border border-lightGreen/60 relative flex justify-center items-center overflow-hidden">
+                        <div class="absolute top-4 left-4 bg-primary text-white text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
+                            🛡️ PCSIR Tested Batch
+                        </div>
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfKdYecLhYpZ3nVsLIC7xjX1rN8qTJCDpESk_MqJ2-VCZ4ROlAQUZfSa57ceeayepRnMaTNZxrdgAY2gpUdxEmjdt5ht1myU9nmhUWCUhBtKrWwAGiugnGyCZqidVP0rfDnPhTxB6y-rgeniYwdy5t_dCLP1rY71XdEs0iSACcTx_vl6SPZuEwwparuzWUu6ef9c3Z29-bDsjeQeNI3_luU4OmZc4N-wG5s5eK7zQnlj4rGuDNjD5d0k42hodoEozjCH5FXc7HFLSL" alt="Tune-Up+ Bottle details" class="object-contain w-full max-w-sm rounded-[24px]">
+                    </div>
+
+                    <!-- Small PCSIR report detail badge cluster -->
+                    <div class="bg-lightGreen/30 border border-primary/10 rounded-2xl p-6 text-left">
+                        <h4 class="font-bold text-primary mb-2 flex items-center gap-2">
+                            <i class="fas fa-clipboard-check text-gold"></i> PCSIR Certified Batch Safety
+                        </h4>
+                        <p class="text-xs text-gray-700 leading-relaxed">
+                            Hamare laboratory test report <strong>No. LHR-HERB-9871A</strong> mutabiq ye formulation puray Pakistan me sab se ziada behtar aur safe consider ki jati hai. Is me koi steroid shamil nahi he.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right: Specifications and Pricing Simulator -->
+                <div class="lg:col-span-6 space-y-6 text-left">
+                    <span class="text-xs uppercase tracking-widest font-black text-gold bg-[#f5e6b8] px-3 py-1 rounded-full">Organic Supplement Specs</span>
+                    <h1 class="text-3xl md:text-4xl font-serif font-black text-primary">Tune-Up+ Herbal Capsules</h1>
+                    
+                    <div class="text-2xl font-black text-primary bg-lightGreen px-4 py-2.5 rounded-xl border border-primary/10 inline-block">
+                        Rs. 6,900 <span class="text-xs text-gray-500 font-bold font-sans">/ Bottle</span>
+                    </div>
+
+                    <!-- Bullet Specs -->
+                    <div class="space-y-3.5 border-t border-b border-lightGreen py-6">
+                        <div class="flex items-center gap-3 text-sm font-semibold text-gray-700">
+                            <div class="w-2.5 h-2.5 rounded-full bg-gold"></div>
+                            <span><strong>Pack Volume:</strong> 60 Capsules per unit (1 Month Course)</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-sm font-semibold text-gray-700">
+                            <div class="w-2.5 h-2.5 rounded-full bg-gold"></div>
+                            <span><strong>Origin:</strong> 100% Khususi Desi Jari Bootiyan (Herbal)</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-sm font-semibold text-gray-700">
+                            <div class="w-2.5 h-2.5 rounded-full bg-gold"></div>
+                            <span><strong>Test Standard:</strong> Certified report by PCSIR Labs Lahore</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-sm font-semibold text-gray-700">
+                            <div class="w-2.5 h-2.5 rounded-full bg-gold"></div>
+                            <span><strong>Dosage Course:</strong> 1 capsule daily after morning breakfast</span>
+                        </div>
+                    </div>
+
+                    <!-- Interactive dynamic price breakdown based on user's manual quantity dropdown selection -->
+                    <div class="bg-white p-6 rounded-2xl border border-lightGreen shadow-sm space-y-4">
+                        <div class="flex items-center justify-between gap-4">
+                            <div>
+                                <label for="quantity-select" class="block text-xs font-bold text-gray-500 uppercase">Apni Chahida Quantity Chunein:</label>
+                                <span class="text-[11px] text-gray-400 block">Jitni bottle chahiyen unki tadaad</span>
+                            </div>
+                            <!-- Select dropdown 1 to 5 as requested of order bottlenecks -->
+                            <select id="quantity-select" class="bg-gray-50 border border-lightGreen rounded-lg text-sm font-extrabold text-primary px-3 py-2 outline-none">
+                                <option value="1">1 Bottle - Rs. 6,900</option>
+                                <option value="2">2 Bottles - Rs. 13,800</option>
+                                <option value="3">3 Bottles - Rs. 20,700</option>
+                                <option value="4">4 Bottles - Rs. 27,600</option>
+                                <option value="5">5 Bottles - Rs. 34,500</option>
+                            </select>
+                        </div>
+
+                        <!-- Real-time dynamic calculator results -->
+                        <div class="bg-lightGreen/20 p-4 rounded-xl space-y-2 border border-lightGreen/50">
+                            <div class="flex justify-between items-center text-xs font-bold text-gray-500">
+                                <span>Total Capsules:</span>
+                                <span id="calc-caps" class="text-primary font-black">60 Capsules</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs font-bold text-gray-500">
+                                <span>Course Duration:</span>
+                                <span id="calc-duration" class="text-primary font-black">1 Month Course</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs font-bold text-gray-500 pt-2 border-t border-lightGreen/40">
+                                <span class="text-sm font-black">Total Bill Amount:</span>
+                                <span id="calc-price" class="text-base text-primary font-black">Rs. 6,900</span>
+                            </div>
+                        </div>
+
+                        <p class="text-[11px] text-green-700 text-center font-extrabold"><i class="fas fa-gift"></i> FREE CASH ON DELIVERY Standard Across Pakistan!</p>
+                    </div>
+
+                    <!-- CTAs -->
+                    <div class="flex flex-col sm:flex-row gap-4 pt-2">
+                        <a id="whatsapp-order-btn" href="https://wa.me/923120805339?text=Assalam-o-Alaikum, mujhe Tune-Up+ supplement order karna he." target="_blank" class="flex-1 bg-[#25c366] hover:bg-[#20b359] text-white py-3.5 px-6 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg transition-all transform hover:-translate-y-1">
+                            <i class="fab fa-whatsapp text-lg"></i> Send Order on WhatsApp
+                        </a>
+                        <a href="contact.html" class="flex-1 bg-primary hover:bg-gold text-white py-3.5 px-6 rounded-xl font-bold text-center shadow-lg transition-all transform hover:-translate-y-1">
+                            Fill Form for COD
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-primary text-white pt-16 pb-8 border-t border-white/10 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="space-y-4 text-left">
+                <span class="text-xl font-extrabold tracking-tight text-white flex items-center gap-1">
+                    TUNE-UP<span class="text-gold">+</span>
+                </span>
+                <p class="text-xs text-white/80 leading-relaxed">
+                    Steroid-free, PCSIR lab tested 100% natural herbal capsules meticulously balanced for energetic life cycles, immune fortification, and joint flexibility.
+                </p>
+            </div>
+            <div class="space-y-4 text-left">
+                <h4 class="font-bold text-sm uppercase tracking-widest text-gold text-left">Navigation</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="index.html" class="hover:text-gold transition-all">Home Page (گھر)</a></li>
+                    <li><a href="product.html" class="hover:text-gold transition-all">Product Spec (مصنوعات)</a></li>
+                    <li><a href="benefits.html" class="hover:text-gold transition-all">Health Benefits (فوائد)</a></li>
+                    <li><a href="testimonials.html" class="hover:text-gold transition-all">Customer reviews (تاثرات)</a></li>
+                    <li><a href="contact.html" class="hover:text-gold transition-all">Order page (رابطہ کریں)</a></li>
+                </ul>
+            </div>
+            <div class="space-y-4 text-left">
+                <h4 class="font-bold text-sm uppercase tracking-widest text-gold text-left">Compliance</h4>
+                <p class="text-xs text-white/80 leading-relaxed">
+                    Tune-Up+ is manufactured matching the highest standards. We test our batches in Pakistan's primary PCSIR Labs to conform with federal safety guidelines. Zero steroids guarantee.
+                </p>
+            </div>
+            <div class="space-y-4 text-left">
+                <h4 class="font-bold text-sm uppercase tracking-widest text-gold text-left">Contact Centre</h4>
+                <div class="space-y-2 text-xs">
+                    <p class="flex items-center gap-2"><i class="fas fa-phone-alt text-gold"></i> <a href="tel:+923120805339" class="hover:text-gold font-bold">+92 312 0805339</a></p>
+                    <p class="flex items-center gap-2"><i class="fas fa-envelope text-gold"></i> <a href="mailto:tune.up.plus.herbal@gmail.com" class="hover:text-gold break-all">tune.up.plus.herbal@gmail.com</a></p>
+                    <p class="text-[10px] text-white/50 pt-2">© 2026 TUNE-UP+ Pakistan. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-white/10 pt-8 mt-12 text-center text-xs text-white/50">
+            Professional Minimalist Healthcare Website in Roman Urdu & English Standards.
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE PRICING SELECTOR SCRIPT -->
+    <script>
+        // Set dynamic variables
+        const selectEl = document.getElementById('quantity-select');
+        const capsEl = document.getElementById('calc-caps');
+        const durationEl = document.getElementById('calc-duration');
+        const priceEl = document.getElementById('calc-price');
+        const whatsappBtn = document.getElementById('whatsapp-order-btn');
+
+        // Monitor changes
+        selectEl.addEventListener('change', (e) => {
+            const quantity = parseInt(e.target.value, 10);
+            const totalCapsCount = quantity * 60;
+            const totalPrice = quantity * 6900;
+            
+            // Render text feedback
+            capsEl.textContent = `${totalCapsCount} Capsules`;
+            durationEl.textContent = `${quantity} Month Course (${quantity} Mahine Ka Course)`;
+            priceEl.textContent = `Rs. ${totalPrice.toLocaleString()}`;
+
+            // Update WhatsApp baseline text
+            const textQuery = `Assalam-o-Alaikum, mujhe Tune-Up+ supplement order karna he. Quantity: ${quantity} Bottle(s) (${totalCapsCount} Capsules). Total Bill: Rs. ${totalPrice.toLocaleString()}. (Mukammal Free Delivery across Pakistan!)`;
+            whatsappBtn.href = `https://wa.me/923120805339?text=${encodeURIComponent(textQuery)}`;
+        });
+
+        // Mobile header drawer logic
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

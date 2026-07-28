@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ur" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TUNE-UP+ Herbal Capsules | Home</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind Colors & Fonts Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a4d2e', // Dark Green
+                        gold: '#d4a743',    // Gold
+                        lightGreen: '#e8f5e9' // Light Green
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['Playfair Display', 'Georgia', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,400&display=swap');
+    </style>
+</head>
+<body class="bg-[#fafdfb] text-gray-800 font-sans min-h-screen flex flex-col">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-lightGreen shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="index.html" class="flex flex-col">
+                <span class="text-xl md:text-2xl font-extrabold tracking-tight text-primary flex items-center gap-1">
+                    TUNE-UP<span class="text-gold">+</span>
+                </span>
+                <span class="text-[9px] uppercase tracking-widest font-black text-gold leading-none text-right">
+                    HERBS OF FOODS
+                </span>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden lg:flex items-center space-x-1">
+                <a href="index.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-primary bg-lightGreen transition-all">Home</a>
+                <a href="product.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-gray-600 hover:text-primary hover:bg-lightGreen transition-all">Product</a>
+                <a href="benefits.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-gray-600 hover:text-primary hover:bg-lightGreen transition-all">Benefits</a>
+                <a href="testimonials.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-gray-600 hover:text-primary hover:bg-lightGreen transition-all">Reviews</a>
+                <a href="contact.html" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-gray-600 hover:text-primary hover:bg-lightGreen transition-all">Order Now</a>
+            </nav>
+
+            <!-- Buttons in Header -->
+            <div class="hidden lg:flex items-center space-x-3">
+                <a href="https://wa.me/923120805339" target="_blank" class="bg-[#25c366] text-white px-4 py-2.5 rounded-lg font-bold text-xs flex items-center gap-1.5 shadow-md hover:bg-[#20b359] transition-all">
+                    <i class="fab fa-whatsapp text-sm"></i> WhatsApp
+                </a>
+                <a href="contact.html" class="bg-primary text-white px-4.5 py-2.5 rounded-lg font-bold text-xs flex items-center gap-1.5 shadow-md hover:bg-gold transition-all">
+                    <i class="fas fa-shopping-cart text-xs"></i> Order Now
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu-btn" class="lg:hidden p-2 text-primary hover:bg-lightGreen rounded-lg transition-all">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer Navigation -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-lightGreen p-4 space-y-2">
+            <a href="index.html" class="block px-4 py-2.5 rounded-lg text-sm font-semibold text-primary bg-lightGreen">Home</a>
+            <a href="product.html" class="block px-4 py-2.5 rounded-lg text-sm font-semibold text-gray-600 hover:text-primary hover:bg-lightGreen">Product Details</a>
+            <a href="benefits.html" class="block px-4 py-2.5 rounded-lg text-sm font-semibold text-gray-600 hover:text-primary hover:bg-lightGreen">Health Benefits</a>
+            <a href="testimonials.html" class="block px-4 py-2.5 rounded-lg text-sm font-semibold text-gray-600 hover:text-primary hover:bg-lightGreen">Customer Reviews</a>
+            <a href="contact.html" class="block px-4 py-2.5 rounded-lg text-sm font-semibold text-gray-600 hover:text-primary hover:bg-lightGreen">Order Online</a>
+            <div class="pt-4 border-t border-lightGreen flex gap-2">
+                <a href="https://wa.me/923120805339" class="flex-1 bg-[#25c366] text-white py-2.5 rounded-lg text-center font-bold text-xs flex items-center justify-center gap-1.5">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+                <a href="contact.html" class="flex-1 bg-primary text-white py-2.5 rounded-lg text-center font-bold text-xs flex items-center justify-center gap-1.5">
+                    <i class="fas fa-shopping-cart"></i> Order Now
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-12 pb-24 md:py-32 bg-gradient-to-tr from-[#fafdfb] via-[#e8f5e9]/25 to-[#f5e6b8]/15 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Texts Column -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#e8f5e9] border border-primary/20 text-primary font-bold text-xs">
+                        <span class="flex h-2.5 w-2.5 rounded-full bg-gold animate-pulse"></span>
+                        <span class="uppercase tracking-wide">Premium Herbal Formulation of Pakistan</span>
+                    </div>
+
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif font-black text-primary leading-[1.1] tracking-tight">
+                        Herbal Sehat aur Tawanai ka <span class="text-gold italic font-normal">Asli Bharosa!</span>
+                    </h1>
+
+                    <p class="text-lg md:text-xl text-gray-700 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                        Aapki aur aapki family ki tawanai, joron ke dard ka aaram, aur her khandaan ki immunity ke liye <strong class="text-primary">TUNE-UP+ capsules</strong>. 100% steroid-free aur PCSIR certified qudrati ghiza jo jism ko andar se chust banti hai.
+                    </p>
+
+                    <!-- Roman Urdu Highlight bullets -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm font-semibold text-gray-700 max-w-lg mx-auto lg:mx-0 pt-2 text-left">
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-check-circle text-gold text-lg"></i>
+                            <span>Joron ke dard mein fori araam</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-check-circle text-gold text-lg"></i>
+                            <span>Sust aur kamzoor jism me tawanai</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-check-circle text-gold text-lg"></i>
+                            <span>Hazma aur sugar levels ka behtareen hal</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-check-circle text-gold text-lg"></i>
+                            <span>Khandaan ke tamam mard o khawateen ke liye</span>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="contact.html" class="w-full sm:w-auto bg-primary text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:bg-gold transition-all flex items-center justify-center gap-2 transform hover:-translate-y-1">
+                            <span>Abhi Order Karein</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="https://wa.me/923120805339" target="_blank" class="w-full sm:w-auto bg-white border-2 border-primary text-primary px-8 py-4 rounded-xl font-bold text-base hover:bg-lightGreen transition-all flex items-center justify-center gap-2 transform hover:-translate-y-1">
+                            <i class="fab fa-whatsapp text-xl text-[#25c366]"></i>
+                            <span>WhatsApp Query</span>
+                        </a>
+                    </div>
+
+                    <p class="text-xs text-gray-500">
+                        Sawalat hain? Direct call karein: <a href="tel:+923120805339" class="text-primary font-extrabold underline hover:text-gold">+92 312 0805339</a>
+                    </p>
+                </div>
+
+                <!-- Right Visual Mockup Column (Premium aesthetic) -->
+                <div class="lg:col-span-5 relative flex justify-center">
+                    <div class="relative bg-white rounded-[32px] p-4 shadow-2xl border border-lightGreen/80 max-w-sm sm:max-w-md w-full">
+                        <div class="absolute -top-3 -right-3 bg-gold text-white font-black text-xs px-4 py-2 rounded-full uppercase tracking-widest shadow-lg rotate-12">
+                            100% Qudrati!
+                        </div>
+                        <!-- High quality apothecary placeholder image link -->
+                        <div class="overflow-hidden rounded-[24px] aspect-square bg-[#fafdfb] flex items-center justify-center relative">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfKdYecLhYpZ3nVsLIC7xjX1rN8qTJCDpESk_MqJ2-VCZ4ROlAQUZfSa57ceeayepRnMaTNZxrdgAY2gpUdxEmjdt5ht1myU9nmhUWCUhBtKrWwAGiugnGyCZqidVP0rfDnPhTxB6y-rgeniYwdy5t_dCLP1rY71XdEs0iSACcTx_vl6SPZuEwwparuzWUu6ef9c3Z29-bDsjeQeNI3_luU4OmZc4N-wG5s5eK7zQnlj4rGuDNjD5d0k42hodoEozjCH5FXc7HFLSL" alt="Tune-Up Premium Herbal Bottle" class="object-cover w-full h-full p-2 transition-transform duration-700 hover:scale-105">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- TRUST BADGES (THREE SEALS) -->
+    <section class="bg-gradient-to-b from-white to-[#e8f5e9]/30 py-12 border-y border-lightGreen">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="text-center text-xs uppercase tracking-widest font-black text-gold mb-8">Hamare Teen Bare Sehat Ke Waade (Trust Guarantees)</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Seal 1 -->
+                <div class="bg-white p-6 rounded-2xl border border-lightGreen hover:border-primary/30 shadow-sm transition-all flex gap-4 text-left">
+                    <div class="bg-lightGreen w-12 h-12 rounded-xl flex items-center justify-center text-primary shrink-0 text-xl font-bold">
+                        🚫
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-base text-primary">
+                            Steroid-Free Gauranteed
+                            <span class="text-[10px] bg-gold text-white px-1.5 py-0.5 rounded ml-1 font-normal">Pak Saaf</span>
+                        </h3>
+                        <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Is me koi dawayi ya steroid shamil nahi hain jo aap ke gurdon ya jigar (kidney or liver) ko nuqsaan phonchayain.</p>
+                    </div>
+                </div>
+                <!-- Seal 2 -->
+                <div class="bg-white p-6 rounded-2xl border border-lightGreen hover:border-primary/30 shadow-sm transition-all flex gap-4 text-left">
+                    <div class="bg-lightGreen w-12 h-12 rounded-xl flex items-center justify-center text-primary shrink-0 text-xl font-bold">
+                        🧪
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-base text-primary">
+                            PCSIR Certified Report
+                            <span class="text-[10px] bg-gold text-white px-1.5 py-0.5 rounded ml-1 font-normal">Sarkari Test</span>
+                        </h3>
+                        <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Humaray har batch ka baqaida sarkari council lab (PCSIR laboratories Lahore) se test hota he, jis ki report bilkul paksaaf he.</p>
+                    </div>
+                </div>
+                <!-- Seal 3 -->
+                <div class="bg-white p-6 rounded-2xl border border-lightGreen hover:border-primary/30 shadow-sm transition-all flex gap-4 text-left">
+                    <div class="bg-lightGreen w-12 h-12 rounded-xl flex items-center justify-center text-primary shrink-0 text-xl font-bold">
+                        🌿
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-base text-primary">
+                            100% Herbal Ingredients
+                            <span class="text-[10px] bg-gold text-white px-1.5 py-0.5 rounded ml-1 font-normal">Qudrati Masalay</span>
+                        </h3>
+                        <p class="text-xs text-gray-600 mt-1.5 leading-relaxed">Khushk jari bootiyon aur qudrati ajza se tayar shuda, baghair kisi side effect ke aap ki sehat ko behtar banaye.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY TUNE-UP+ SECTION WITH 3 CORE BENEFITS -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <span class="text-xs uppercase tracking-widest font-black text-gold bg-[#f5e6b8] px-3 py-1 rounded-full">Kamil Ghiza, Kamil Bharosa</span>
+                <h2 class="text-3xl md:text-4xl font-serif font-black text-primary">Kyun TUNE-UP+ Hi Best Hai?</h2>
+                <p class="text-gray-600 font-semibold">Hum koi jhuuti dawa ya mock report nahi bachtey! Hamari product jism ke har uzv ko behtar tawanai deti hai.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Benefit 1 -->
+                <div class="bg-[#fafdfb] p-8 rounded-3xl border border-lightGreen hover:border-primary/20 transition-all text-center space-y-4 shadow-sm group">
+                    <div class="w-16 h-16 bg-lightGreen text-primary rounded-2xl flex items-center justify-center text-2xl mx-auto shadow-inner group-hover:scale-110 transition-transform">
+                        <i class="fas fa-heartbeat text-gold"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-primary">Dil aur Jigar Ki Hifazat</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        Ye cholesterol ko low rakhney aur blood circulation ko mutawazan rakhney me madadgar hai, jis se jism active rehta hai.
+                    </p>
+                </div>
+
+                <!-- Benefit 2 -->
+                <div class="bg-[#fafdfb] p-8 rounded-3xl border border-lightGreen hover:border-primary/20 transition-all text-center space-y-4 shadow-sm group">
+                    <div class="w-16 h-16 bg-lightGreen text-primary rounded-2xl flex items-center justify-center text-2xl mx-auto shadow-inner group-hover:scale-110 transition-transform">
+                        <i class="fas fa-feather-alt text-gold"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-primary">Halka Aur Chust Jism</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        Subah ke waqt uthney ke thakawat ko khatam karta he aur jism ko aik asar-angez tawanai aur active dhaal deta he.
+                    </p>
+                </div>
+
+                <!-- Benefit 3 -->
+                <div class="bg-[#fafdfb] p-8 rounded-3xl border border-lightGreen hover:border-primary/20 transition-all text-center space-y-4 shadow-sm group">
+                    <div class="w-16 h-16 bg-lightGreen text-primary rounded-2xl flex items-center justify-center text-2xl mx-auto shadow-inner group-hover:scale-110 transition-transform">
+                        <i class="fas fa-shield-alt text-gold"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-primary">Bimarion Se Larny Ki Taqat</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        Anti-oxidants se bharpoor jari bootiyan quwat-e-mudafiat (immunity) ko dhaal ki tarah mazboout aur bimarion se mehfooz rakhti hain.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Conversion point -->
+            <div class="mt-16 text-center">
+                <a href="contact.html" class="inline-flex items-center gap-2 bg-primary text-white px-8 py-4 rounded-xl font-bold hover:bg-gold transition-all shadow-md transform hover:-translate-y-1">
+                    <span>Abhi Apna Order Form Pur Karein</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-primary text-white pt-16 pb-8 border-t border-white/10 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="space-y-4 text-left">
+                <span class="text-xl font-extrabold tracking-tight text-white flex items-center gap-1">
+                    TUNE-UP<span class="text-gold">+</span>
+                </span>
+                <p class="text-xs text-white/80 leading-relaxed">
+                    Steroid-free, PCSIR lab tested 100% natural herbal capsules meticulously balanced for energetic life cycles, immune fortification, and joint flexibility.
+                </p>
+            </div>
+            <div class="space-y-4 text-left">
+                <h4 class="font-bold text-sm uppercase tracking-widest text-gold text-left">Navigation</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="index.html" class="hover:text-gold transition-all">Home Page (گھر)</a></li>
+                    <li><a href="product.html" class="hover:text-gold transition-all">Product Spec (مصنوعات)</a></li>
+                    <li><a href="benefits.html" class="hover:text-gold transition-all">Health Benefits (فوائد)</a></li>
+                    <li><a href="testimonials.html" class="hover:text-gold transition-all">Customer reviews (تاثرات)</a></li>
+                    <li><a href="contact.html" class="hover:text-gold transition-all">Order page (رابطہ کریں)</a></li>
+                </ul>
+            </div>
+            <div class="space-y-4 text-left">
+                <h4 class="font-bold text-sm uppercase tracking-widest text-gold text-left">Compliance</h4>
+                <p class="text-xs text-white/80 leading-relaxed">
+                    Tune-Up+ is manufactured matching the highest standards. We test our batches in Pakistan's primary PCSIR Labs to conform with federal safety guidelines. Zero steroids guarantee.
+                </p>
+            </div>
+            <div class="space-y-4 text-left">
+                <h4 class="font-bold text-sm uppercase tracking-widest text-gold text-left">Contact Centre</h4>
+                <div class="space-y-2 text-xs">
+                    <p class="flex items-center gap-2"><i class="fas fa-phone-alt text-gold"></i> <a href="tel:+923120805339" class="hover:text-gold font-bold">+92 312 0805339</a></p>
+                    <p class="flex items-center gap-2"><i class="fas fa-envelope text-gold"></i> <a href="mailto:tune.up.plus.herbal@gmail.com" class="hover:text-gold break-all">tune.up.plus.herbal@gmail.com</a></p>
+                    <p class="text-[10px] text-white/50 pt-2">© 2026 TUNE-UP+ Pakistan. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-white/10 pt-8 mt-12 text-center text-xs text-white/50">
+            Professional Minimalist Healthcare Website in Roman Urdu & English Standards.
+        </div>
+    </footer>
+
+    <!-- MOBILE NAVIGATION DROPDOWN LOGIC -->
+    <script>
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
