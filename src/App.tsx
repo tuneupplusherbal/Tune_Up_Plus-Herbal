@@ -227,13 +227,21 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           
           {/* Brand Logo and Urdu Tagline */}
-          <div className="flex flex-col cursor-pointer" onClick={() => scrollTo('home')}>
-            <span className="text-2xl md:text-3xl font-extrabold tracking-tight text-[#1a4d2e] flex items-center gap-1">
-              TUNE-UP<span className="text-[#d4a743]">+</span>
-            </span>
-            <span className="text-[9px] md:text-[11px] uppercase tracking-widest font-black text-[#d4a743] leading-none text-right">
-              HERBS OF FOODS
-            </span>
+          {/* Logo brand */}
+          <div className="flex items-center gap-2.5 cursor-pointer group" onClick={() => scrollTo('home')}>
+            <img 
+              src="/favicon.svg" 
+              alt="Tune-Up+ Logo" 
+              className="w-10 h-10 md:w-12 md:h-12 object-contain filter drop-shadow-sm transition-transform duration-300 group-hover:scale-105" 
+            />
+            <div className="flex flex-col">
+              <span className="text-xl md:text-2xl font-black tracking-tight text-[#1a4d2e] flex items-center gap-0.5 leading-tight">
+                TUNE-UP<span className="text-[#d4a743]">+</span>
+              </span>
+              <span className="text-[8px] md:text-[10px] uppercase tracking-widest font-extrabold text-[#d4a743] leading-none">
+                HERBS OF FOODS
+              </span>
+            </div>
           </div>
 
           {/* Desktop Navigation Links (all 5 pages) */}
@@ -306,7 +314,13 @@ export default function App() {
         <div className="lg:hidden fixed inset-0 z-30 bg-black/50 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)}>
           <div className="absolute right-0 top-20 w-3/4 max-w-sm bg-white h-[calc(100vh-80px)] shadow-2xl p-6 flex flex-col justify-between" onClick={e => e.stopPropagation()}>
             <div className="space-y-4">
-              <h3 className="text-xs uppercase tracking-widest font-bold text-gray-400 border-b pb-2">Page Navigation</h3>
+              <div className="flex items-center gap-2 border-b pb-3">
+                <img src="/favicon.svg" alt="Tune-Up+ Logo" className="w-8 h-8 object-contain" />
+                <div className="flex flex-col">
+                  <span className="text-lg font-black text-[#1a4d2e]">TUNE-UP<span className="text-[#d4a743]">+</span></span>
+                  <span className="text-[8px] uppercase tracking-widest font-extrabold text-[#d4a743] -mt-1">HERBS OF FOODS</span>
+                </div>
+              </div>
               {[
                 { id: 'home', label: 'Home Page (گھر)' },
                 { id: 'product', label: 'Product Page (مصنوعات)' },

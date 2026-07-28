@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <rect width="512" height="512" rx="128" fill="#faf6ee"/>
+  <g transform="translate(256, 256) scale(0.9)">
+    <!-- Central figure body / trunk in deep green -->
+    <path d="M-15,90 C-40,50 -55,10 -35,-25 C-25,-45 -8,-60 0,-65 C8,-60 25,-45 35,-25 C55,10 40,50 15,90 C10,115 18,145 18,155 C0,145 -10,115 -15,90 Z" fill="#1a4d2e"/>
+    <!-- Head -->
+    <circle cx="0" cy="-80" r="28" fill="#1a4d2e"/>
+    
+    <!-- Left arm leaf -->
+    <path d="M-18,-35 C-65,-25 -115,-5 -125,-35 C-105,-55 -55,-55 -18,-35 Z" fill="#1a4d2e"/>
+    <!-- Right raised arm leaf -->
+    <path d="M18,-35 C38,-65 68,-115 88,-125 C98,-95 58,-55 18,-35 Z" fill="#1a4d2e"/>
+    
+    <!-- Bottom right stem leaf -->
+    <path d="M10,125 C30,115 65,95 75,55 C55,75 25,105 10,125 Z" fill="#76b82a"/>
+
+    <!-- Tree Canopy Leaf Clusters -->
+    <!-- Top Center - Blue -->
+    <path d="M0,-115 C-22,-155 -10,-195 0,-215 C10,-195 22,-155 0,-115 Z" fill="#0263b2"/>
+    <!-- Top Right - Orange -->
+    <path d="M22,-110 C12,-150 38,-185 52,-200 C58,-180 48,-140 22,-110 Z" fill="#f26522"/>
+    <!-- Top Left - Green -->
+    <path d="M-22,-110 C-12,-150 -38,-185 -52,-200 C-58,-180 -48,-140 -22,-110 Z" fill="#137537"/>
+    <!-- Far Right - Light Green -->
+    <path d="M48,-95 C48,-130 78,-155 98,-165 C93,-145 73,-120 48,-95 Z" fill="#76b82a"/>
+    <!-- Far Left - Emerald -->
+    <path d="M-48,-95 C-48,-130 -78,-155 -98,-165 C-93,-145 -73,-120 -48,-95 Z" fill="#2d8a43"/>
+    <!-- Mid Right - Purple -->
+    <path d="M62,-70 C77,-95 117,-105 137,-110 C122,-95 92,-75 62,-70 Z" fill="#5c1d73"/>
+    <!-- Mid Left - Red -->
+    <path d="M-62,-70 C-77,-95 -117,-105 -137,-110 C-122,-95 -92,-75 -62,-70 Z" fill="#d3131b"/>
+    <!-- Lower Right - Orange -->
+    <path d="M68,-40 C93,-55 138,-55 153,-55 C133,-40 98,-35 68,-40 Z" fill="#ff8a00"/>
+    <!-- Lower Left - Dark Green -->
+    <path d="M-68,-40 C-93,-55 -138,-55 -153,-55 C-133,-40 -98,-35 -68,-40 Z" fill="#00592e"/>
+    <!-- Bottom Right - Bright Red -->
+    <path d="M58,-10 C88,-20 128,-5 138,5 C118,10 83,5 58,-10 Z" fill="#e30613"/>
+    <!-- Bottom Left - Royal Blue -->
+    <path d="M-58,-10 C-88,-20 -128,-5 -138,5 C-118,10 -83,5 -58,-10 Z" fill="#004085"/>
+
+    <!-- Gold Sparkles -->
+    <path d="M-115,-155 L-110,-146 L-101,-141 L-110,-136 L-115,-127 L-120,-136 L-129,-141 L-120,-146 Z" fill="#d4a743"/>
+    <path d="M125,-145 L129,-138 L136,-134 L129,-130 L125,-123 L121,-130 L114,-134 L121,-138 Z" fill="#d4a743"/>
+  </g>
+</svg>
