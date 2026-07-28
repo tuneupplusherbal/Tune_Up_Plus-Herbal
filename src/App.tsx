@@ -181,7 +181,7 @@ export default function App() {
           _subject: `New Order from Tune-Up+ - Rs. ${totalBillAmount.toLocaleString()} (${fullName})`,
           _template: "box",
           _captcha: "true",
-          _autoresponse: `Assalam-o-Alaikum! Thank you for your order from Tune-Up+. We have received your order details and will contact you shortly for confirmation.\n\n📋 YOUR ORDER SUMMARY (ORDER KI MAALUMAT):\n-------------------------------------\n👤 Customer Name: ${fullName}\n📦 Product Selected: Tune-Up+ Herbal Capsules - ${pkgDetail}\n🔢 Quantity ordered: ${orderQuantity} Pack(s)\n🧴 Total Bottles: ${totalBottlesCount} Bottle(s) (${totalCapsCount} Capsules)\n💰 Total Bill: Rs. ${totalBillAmount.toLocaleString()} (Cash on Delivery + Free Delivery)\n📍 Shipping Address: ${address}, ${city}\n\nOur customer support and health expert team will contact you within just 2 hours to confirm your active order. For any questions or queries, please call or WhatsApp us at +92 312 0805339.\n\nThank you for choosing Tune-Up+ Pakistan!`
+          _autoresponse: `Assalam-o-Alaikum! Thank you for your order from Tune-Up+. We have received your order details and will contact you shortly for confirmation.\n\n📋 YOUR ORDER SUMMARY (ORDER KI MAALUMAT):\n-------------------------------------\n👤 Customer Name: ${fullName}\n📦 Product Selected: Tune-Up+ Herbal Capsules - ${pkgDetail}\n🔢 Quantity ordered: ${orderQuantity} Pack(s)\n🧴 Total Bottles: ${totalBottlesCount} Bottle(s) (${totalCapsCount} Capsules)\n💰 Total Bill: Rs. ${totalBillAmount.toLocaleString()} (Cash on Delivery + Free Delivery)\n📍 Shipping Address: ${address}, ${city}\n\nOur customer support and health expert team will contact you within just 2 hours to confirm your active order. For any questions or queries, please call or WhatsApp us at +92 304 2351501.\n\nThank you for choosing Tune-Up+ Pakistan!`
         })
       });
 
@@ -264,7 +264,7 @@ export default function App() {
             
             {/* BUTTON 1 (Left): Order on WhatsApp */}
             <a
-              href="https://wa.me/923120805339"
+              href="https://wa.me/923042351501"
               target="_blank"
               rel="noreferrer"
               className="bg-[#d4a743] text-white px-4 py-2.5 rounded-lg font-bold text-xs xl:text-sm flex items-center gap-1.5 shadow-md shadow-[#d4a743]/10 hover:bg-[#c29633] transition-all duration-300 transform hover:scale-[1.05]"
@@ -285,7 +285,7 @@ export default function App() {
           {/* Mobile Hamburg menu button */}
           <div className="lg:hidden flex items-center space-x-2">
             <a
-              href="https://wa.me/923120805339"
+              href="https://wa.me/923042351501"
               className="bg-[#d4a743] text-white p-2 rounded-lg font-bold text-xs flex items-center gap-1"
             >
               <span>📞</span> WhatsApp
@@ -331,7 +331,7 @@ export default function App() {
 
             <div className="space-y-3 pt-6 border-t mt-auto">
               <a
-                href="https://wa.me/923120805339"
+                href="https://wa.me/923042351501"
                 target="_blank"
                 rel="noreferrer"
                 className="w-full bg-[#d4a743] text-white py-3 px-4 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg"
@@ -345,7 +345,7 @@ export default function App() {
                 <span>🛒 Order Now online</span>
               </button>
               <p className="text-center text-[10px] text-gray-500">
-                Any questions? Call us on <span className="text-[#1a4d2e] font-extrabold">+92 312 0805339</span>
+                Any questions? Call us on <span className="text-[#1a4d2e] font-extrabold">+92 304 2351501</span>
               </p>
             </div>
           </div>
@@ -414,7 +414,7 @@ export default function App() {
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform" />
                   </button>
                   <a
-                    href="https://wa.me/923120805339"
+                    href="https://wa.me/923042351501"
                     target="_blank"
                     rel="noreferrer"
                     className="w-full sm:w-auto bg-white border-2 border-[#1a4d2e] text-[#1a4d2e] px-8 py-4 rounded-xl font-bold text-base hover:bg-[#e8f5e9] transition-all duration-300 flex items-center justify-center gap-2 transform hover:-translate-y-1"
@@ -425,7 +425,7 @@ export default function App() {
 
                 {/* Trust Badge Bar showing phone right under CTAs */}
                 <p className="text-xs text-gray-500">
-                  Questions? Consult with our Herbal Doctor: <a href="tel:+923120805339" className="text-[#1a4d2e] font-extrabold underline hover:text-[#d4a743]">+92 312 0805339</a>
+                  Questions? Consult with our Herbal Doctor: <a href="tel:+923042351501" className="text-[#1a4d2e] font-extrabold underline hover:text-[#d4a743]">+92 304 2351501</a>
                 </p>
 
               </div>
@@ -685,32 +685,37 @@ export default function App() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-              <span className="text-xs uppercase tracking-widest font-black text-[#d4a743] bg-[#f5e6b8] px-3 py-1 rounded-full">Har Maslay Ka Shifa-Bakhsh Hal</span>
-              <h2 className="text-3xl md:text-4xl font-serif font-black text-[#1a4d2e]">Faida Tune-Up Plus Ke!</h2>
-              <p className="text-gray-600 font-semibold">
-                Clinical testings ke mutabiq ye capsules jism ke mukhtalif hisso me behtar tawanai aur dard ki dafah banty hain.
+              <span className="text-xs uppercase tracking-widest font-black text-[#d4a743] bg-[#f5e6b8] px-3 py-1 rounded-full">100% Natural Herbal Formula • Suitable for 16+ Years</span>
+              <h2 className="text-3xl md:text-4xl font-serif font-black text-[#1a4d2e]">Health Benefits of Tune-Up+</h2>
+              <p className="text-gray-600 font-semibold text-sm md:text-base">
+                Formulated from pure organic herbs, Tune-Up+ capsules support total body wellness, sustained energy, joint comfort, and digestive health for individuals aged 16 and above.
               </p>
 
-              {/* Age Group Suitability filter tabs to gamify benefits discovery */}
+              {/* Age Group Suitability filter tabs */}
               <div className="flex flex-wrap items-center justify-center gap-2 mt-6">
-                <span className="text-xs font-bold text-gray-500 mr-2 uppercase">Suitable for:</span>
-                {['All', 'Children', 'Adults', 'Elderly'].map((group) => (
+                <span className="text-xs font-bold text-gray-500 mr-2 uppercase">Filter by Age:</span>
+                {[
+                  { key: 'All', label: '👥 All (16+)' },
+                  { key: '16+ Years', label: '🎓 Youth & Teens (16+)' },
+                  { key: 'Adults', label: '👨‍💼 Adults' },
+                  { key: 'Seniors', label: '👵 Seniors' }
+                ].map((item) => (
                   <button
-                    key={group}
-                    onClick={() => setSelectedAgeGroup(group)}
+                    key={item.key}
+                    onClick={() => setSelectedAgeGroup(item.key)}
                     className={`px-4 py-2 rounded-xl text-xs font-bold border transition-all duration-200 ${
-                      selectedAgeGroup === group
+                      selectedAgeGroup === item.key
                         ? 'bg-[#1a4d2e] text-white border-[#1a4d2e]'
                         : 'bg-white text-gray-600 border-[#e8f5e9] hover:bg-[#e8f5e9]/30'
                     }`}
                   >
-                    {group === 'All' ? '👨‍👩‍👧‍👦 Tamam Logan (All)' : group === 'Children' ? '👶 Becho Ke Liye' : group === 'Adults' ? '👨‍💼 Jawan Ke Liye' : '👵 Buzurgon Ke Liye'}
+                    {item.label}
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Grid Layout with 6-8 Benefit Cards */}
+            {/* Grid Layout with Benefit Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {BENEFITS
                 .filter(b => selectedAgeGroup === 'All' || b.suitableFor.includes(selectedAgeGroup))
@@ -750,7 +755,7 @@ export default function App() {
                       <div className="flex items-center gap-1.5 pt-2">
                         <span className="text-[10px] text-gray-400 font-bold">Safe for:</span>
                         {benefit.suitableFor.map((sf, idx) => (
-                          <span key={idx} className="bg-gray-100 text-[#333333] text-[9px] px-2 py-0.5 rounded-full font-bold">
+                          <span key={idx} className="bg-emerald-50 text-[#1a4d2e] text-[9px] px-2.5 py-0.5 rounded-full font-bold">
                             {sf}
                           </span>
                         ))}
@@ -880,7 +885,7 @@ export default function App() {
                     
                     {/* Clickable Phone block */}
                     <a 
-                      href="tel:+923120805339" 
+                      href="tel:+923042351501" 
                       className="flex items-center sm:items-start gap-3 p-2 sm:p-3 rounded-xl hover:bg-[#e8f5e9]/30 transition-all group"
                     >
                       <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-[#e8f5e9] text-[#1a4d2e] group-hover:bg-[#1a4d2e] group-hover:text-white transition-colors flex items-center justify-center text-base sm:text-xl shrink-0">
@@ -888,7 +893,7 @@ export default function App() {
                       </div>
                       <div>
                         <p className="text-[10px] sm:text-xs font-bold text-gray-500 uppercase tracking-widest">Call or Phone order:</p>
-                        <p className="text-sm sm:text-lg font-black text-[#1a4d2e] group-hover:text-[#d4a743] transition-colors">+92 312 0805339</p>
+                        <p className="text-sm sm:text-lg font-black text-[#1a4d2e] group-hover:text-[#d4a743] transition-colors">+92 304 2351501</p>
                         <span className="text-[9px] sm:text-[10px] text-gray-400">Available Monday to Sunday (9AM - 11PM)</span>
                       </div>
                     </a>
@@ -910,7 +915,7 @@ export default function App() {
 
                     {/* Highly prominent responsive WhatsApp Button */}
                     <a 
-                      href="https://wa.me/923120805339?text=Assalam-o-Alaikum%20Tune-Up%2B%20Team%2C%20mujhe%20Tune-Up%2B%20capsules%20order%20karne%20hain"
+                      href="https://wa.me/923042351501?text=Assalam-o-Alaikum%20Tune-Up%2B%20Team%2C%20mujhe%20Tune-Up%2B%20capsules%20order%20karne%20hain"
                       target="_blank"
                       rel="noreferrer"
                       className="w-full bg-[#25D366] hover:bg-[#20ba59] text-white py-2.5 sm:py-3.5 px-4 sm:px-6 rounded-xl font-bold flex flex-col items-center justify-center gap-0.5 shadow-md transition-all text-xs sm:text-base transform hover:-translate-y-0.5"
@@ -1511,7 +1516,7 @@ export default function App() {
               <div className="space-y-2 text-xs">
                 <p className="flex items-center justify-center md:justify-start gap-2">
                   <span>📞</span>
-                  <a href="tel:+923120805339" className="hover:text-[#d4a743] font-bold">+92 312 0805339</a>
+                  <a href="tel:+923042351501" className="hover:text-[#d4a743] font-bold">+92 304 2351501</a>
                 </p>
                 <p className="flex items-center justify-center md:justify-start gap-2">
                   <span>✉️</span>
@@ -1534,7 +1539,7 @@ export default function App() {
 
       {/* FLOAT WHATSAPP ACTIVE ICON (Bottom Right) */}
       <a 
-        href="https://wa.me/923120805339"
+        href="https://wa.me/923042351501"
         target="_blank"
         rel="noreferrer"
         className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform cursor-pointer group"
