@@ -29,7 +29,7 @@ import {
 } from 'lucide-react';
 import { TRUST_BADGES, INGREDIENTS, BENEFITS, TESTIMONIALS, PRODUCT_PACKAGES, FAQS } from './data';
 import { Ingredient, Benefit, Testimonial, ProductPackage } from './types';
-const productImage = "https://tuneupplus.netlify.app/assets/Front%20View%20-tuneup-DA6aBP5H.png";
+import productImage from './assets/images/tuneup_premium_bottle_1781620630182.jpg';
 import familyImage from './assets/images/tuneup_family_1781618517187.jpg';
 
 export default function App() {
@@ -448,7 +448,7 @@ export default function App() {
                     <img 
                       src={productImage} 
                       alt="Tune-Up+ Herbs of Foods Premium Organic Supplement Bottle representing authentic natural wellness"
-                      className="w-full h-full object-contain p-2 transition-transform duration-700 hover:scale-105"
+                      className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                       referrerPolicy="no-referrer"
                       onError={(e) => {
                         // Safe fallback just in case
