@@ -29,7 +29,7 @@ import {
 } from 'lucide-react';
 import { TRUST_BADGES, INGREDIENTS, BENEFITS, TESTIMONIALS, PRODUCT_PACKAGES, FAQS } from './data';
 import { Ingredient, Benefit, Testimonial, ProductPackage } from './types';
-import productImage from 'https://i.ibb.co/TB0ZWzCh/Front-View-tuneup.png';
+import productImage from './assets/images/Front_View-tuneup.png';
 import familyImage from './assets/images/tuneup_family_1781618517187.jpg';
 
 export default function App() {
