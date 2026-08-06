@@ -26,6 +26,27 @@ export default function OrderContactSection({ productImage }: OrderContactSectio
 
     setIsSubmitting(true);
 
+    // Track Meta Pixel Purchase / Lead Event
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const testCode = urlParams.get('test_event_code');
+      const pixelOptions = testCode ? { test_event_code: testCode } : {};
+
+      (window as any).fbq('track', 'Purchase', {
+        value: totalPrice,
+        currency: 'PKR',
+        content_name: 'Tune-Up+ Organic Herbal Capsules',
+        content_type: 'product',
+        num_items: quantity
+      }, pixelOptions);
+
+      (window as any).fbq('track', 'Lead', {
+        content_name: 'Tune-Up+ Order Lead',
+        value: totalPrice,
+        currency: 'PKR'
+      }, pixelOptions);
+    }
+
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);

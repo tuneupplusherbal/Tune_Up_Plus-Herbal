@@ -106,6 +106,37 @@ export default function TuneUpPlusProductPage({ onBackToMain }: TuneUpPlusProduc
     setIsOrderModalOpen(false);
   };
 
+  // Form Submit Handler for Order Modal
+  const handleModalOrderSubmit = (e: React.FormEvent) => {
+    if (!name.trim() || !phone.trim() || !address.trim()) {
+      alert('Meharbani karke Naam, Phone aur Address likhein!');
+      e.preventDefault();
+      return;
+    }
+
+    // Helper to get test_event_code from URL if testing
+    const urlParams = new URLSearchParams(window.location.search);
+    const testCode = urlParams.get('test_event_code');
+    const pixelOptions = testCode ? { test_event_code: testCode } : {};
+
+    // Track Meta Pixel Purchase & Lead Events
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+      (window as any).fbq('track', 'Purchase', {
+        value: totalPrice,
+        currency: 'PKR',
+        content_name: 'Tune-Up+ Organic Herbal Capsules',
+        content_type: 'product',
+        num_items: quantity
+      }, pixelOptions);
+
+      (window as any).fbq('track', 'Lead', {
+        content_name: 'Tune-Up+ Order Lead',
+        value: totalPrice,
+        currency: 'PKR'
+      }, pixelOptions);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#fafdfb] text-gray-800 font-sans relative">
       
@@ -646,6 +677,7 @@ export default function TuneUpPlusProductPage({ onBackToMain }: TuneUpPlusProduc
               <form
                 action="https://formsubmit.co/tune.up.plus.herbal@gmail.com"
                 method="POST"
+                onSubmit={handleModalOrderSubmit}
                 className="space-y-4"
               >
                 {/* Hidden Required FormSubmit.co Configuration Fields */}

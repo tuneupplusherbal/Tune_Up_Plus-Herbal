@@ -51,10 +51,14 @@ export default function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  // Trigger Meta Pixel PageView on client-side route changes
+  // Trigger Meta Pixel PageView on client-side route changes & pass test_event_code if present
   useEffect(() => {
     if (typeof window !== 'undefined' && (window as any).fbq) {
-      (window as any).fbq('track', 'PageView');
+      const urlParams = new URLSearchParams(window.location.search);
+      const testCode = urlParams.get('test_event_code');
+      const pixelOptions = testCode ? { test_event_code: testCode } : {};
+
+      (window as any).fbq('track', 'PageView', {}, pixelOptions);
     }
   }, [currentPath]);
 
@@ -63,6 +67,19 @@ export default function App() {
       window.history.pushState({}, '', '/tuneupplus/');
       setCurrentPath('/tuneupplus/');
       window.scrollTo(0, 0);
+
+      // Track InitiateCheckout in Meta Pixel
+      if ((window as any).fbq) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const testCode = urlParams.get('test_event_code');
+        const pixelOptions = testCode ? { test_event_code: testCode } : {};
+
+        (window as any).fbq('track', 'InitiateCheckout', {
+          content_name: 'Tune-Up+ Organic Herbal Capsules',
+          currency: 'PKR',
+          value: 6900
+        }, pixelOptions);
+      }
     }
   };
 
