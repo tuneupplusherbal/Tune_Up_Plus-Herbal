@@ -166,6 +166,14 @@ export const BENEFITS: Benefit[] = [
     iconName: 'hair-fall',
     suitableFor: ['16+ Years', 'Adults'],
   },
+  {
+    id: 'sugar-control',
+    title: 'Natural Sugar & Glucose Balance',
+    subtitle: 'شوگر اور گلائکوز لیول کا قدرتی توازن',
+    description: 'Helps maintain balanced blood sugar levels, supports healthy metabolic energy conversion, and improves daily vitality without synthetic chemicals.',
+    iconName: 'sugar-control',
+    suitableFor: ['Adults', 'Seniors'],
+  },
 ];
 
 export const TESTIMONIALS: Testimonial[] = [
