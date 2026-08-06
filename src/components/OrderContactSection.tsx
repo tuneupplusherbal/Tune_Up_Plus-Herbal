@@ -221,18 +221,32 @@ export default function OrderContactSection({ productImage }: OrderContactSectio
               {/* Contact Info Items */}
               <div className="space-y-4 pt-2">
                 
+                {/* Phone & Helpline */}
+                <a 
+                  href="tel:+923042351501" 
+                  className="flex items-center gap-4 p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 hover:border-[#d4a743] hover:shadow-xl transition-all duration-300 group cursor-pointer"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#1a4d2e] to-[#2e6e47] border border-[#d4a743]/50 text-white flex items-center justify-center font-bold text-2xl shadow-lg group-hover:scale-110 transition-transform shrink-0">
+                    <span className="text-xl">📞</span>
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-black text-amber-200/90 uppercase tracking-widest">Helpline & Direct Call</p>
+                    <p className="text-base sm:text-lg font-black text-white group-hover:text-[#d4a743] transition-colors">+92 304 2351501</p>
+                  </div>
+                </a>
+
                 {/* WhatsApp */}
                 <a 
-                  href="https://wa.me/923042351501" 
+                  href="https://wa.me/923042351501?text=Assalam-o-Alaikum%20Tune-Up%2B%20Team%2C%20mujhe%20Tune-Up%2B%20capsules%20ke%20bare%20me%20rabta%20karna%20hai" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center gap-4 p-4 rounded-xl bg-white/10 border border-white/15 hover:bg-white/20 hover:border-[#25d366] transition-all group"
+                  className="flex items-center gap-4 p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 hover:border-[#25d366] hover:shadow-xl transition-all duration-300 group cursor-pointer"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-[#25d366] text-white flex items-center justify-center font-bold text-2xl shadow-md group-hover:scale-110 transition-transform">
+                  <div className="w-12 h-12 rounded-xl bg-[#25d366] text-white flex items-center justify-center font-bold text-2xl shadow-lg group-hover:scale-110 transition-transform shrink-0">
                     <MessageSquare className="w-6 h-6 fill-white" />
                   </div>
-                  <div>
-                    <p className="text-[10px] font-bold text-gray-300 uppercase tracking-wider">WhatsApp</p>
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-black text-emerald-200 uppercase tracking-widest">WhatsApp Support (24/7)</p>
                     <p className="text-base sm:text-lg font-black text-white group-hover:text-[#25d366] transition-colors">+92 304 2351501</p>
                   </div>
                 </a>
@@ -240,14 +254,14 @@ export default function OrderContactSection({ productImage }: OrderContactSectio
                 {/* Email */}
                 <a 
                   href="mailto:tune.up.plus.herbal@gmail.com"
-                  className="flex items-center gap-4 p-4 rounded-xl bg-white/10 border border-white/15 hover:bg-white/20 hover:border-[#d4a743] transition-all group"
+                  className="flex items-center gap-4 p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 hover:border-[#d4a743] hover:shadow-xl transition-all duration-300 group cursor-pointer"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-[#d4a743] text-white flex items-center justify-center font-bold text-xl shadow-md group-hover:scale-110 transition-transform">
-                    <Mail className="w-6 h-6" />
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#d4a743] to-[#b38528] text-emerald-950 flex items-center justify-center font-bold text-xl shadow-lg group-hover:scale-110 transition-transform shrink-0">
+                    <Mail className="w-6 h-6 text-emerald-950" />
                   </div>
-                  <div className="break-all">
-                    <p className="text-[10px] font-bold text-gray-300 uppercase tracking-wider">Email</p>
-                    <p className="text-xs sm:text-sm font-bold text-white group-hover:text-[#d4a743] transition-colors">tune.up.plus.herbal@gmail.com</p>
+                  <div className="min-w-0 break-all">
+                    <p className="text-[10px] font-black text-amber-200/90 uppercase tracking-widest">Official Email</p>
+                    <p className="text-xs sm:text-sm font-black text-white group-hover:text-[#d4a743] transition-colors">tune.up.plus.herbal@gmail.com</p>
                   </div>
                 </a>
 
@@ -256,14 +270,14 @@ export default function OrderContactSection({ productImage }: OrderContactSectio
                   href="https://www.tuneupplus.com" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center gap-4 p-4 rounded-xl bg-white/10 border border-white/15 hover:bg-white/20 hover:border-emerald-400 transition-all group"
+                  className="flex items-center gap-4 p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 hover:border-emerald-400 hover:shadow-xl transition-all duration-300 group cursor-pointer"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-xl shadow-md group-hover:scale-110 transition-transform">
-                    <Globe className="w-6 h-6" />
+                  <div className="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-xl shadow-lg group-hover:scale-110 transition-transform shrink-0">
+                    <Globe className="w-6 h-6 text-white" />
                   </div>
-                  <div>
-                    <p className="text-[10px] font-bold text-gray-300 uppercase tracking-wider">Website</p>
-                    <p className="text-sm font-bold text-white group-hover:text-emerald-300 transition-colors">www.tuneupplus.com</p>
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-black text-emerald-200 uppercase tracking-widest">Official Website</p>
+                    <p className="text-sm font-black text-white group-hover:text-emerald-300 transition-colors">www.tuneupplus.com</p>
                   </div>
                 </a>
 
@@ -271,17 +285,30 @@ export default function OrderContactSection({ productImage }: OrderContactSectio
 
             </div>
 
-            {/* Direct WhatsApp CTA Button */}
-            <div className="mt-8 pt-4 border-t border-white/10">
+            {/* Direct WhatsApp CTA Button & Guarantee Badges */}
+            <div className="mt-8 pt-4 border-t border-white/15 space-y-4">
               <a 
                 href="https://wa.me/923042351501?text=Assalam-o-Alaikum%20Tune-Up%2B%20Team%2C%20mujhe%20Tune-Up%2B%20capsules%20ke%20bare%20me%20rabta%20karna%20hai"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full bg-[#25d366] hover:bg-[#20ba59] active:scale-[0.98] text-white font-black py-4 px-6 rounded-xl transition-all duration-300 shadow-xl flex items-center justify-center gap-2 text-base"
+                className="w-full bg-gradient-to-r from-[#25d366] to-[#1da851] hover:from-[#20ba59] hover:to-[#178f43] active:scale-[0.98] text-white font-black py-4 px-6 rounded-2xl transition-all duration-300 shadow-2xl flex items-center justify-center gap-2 text-base border border-emerald-300/40 cursor-pointer animate-cta-shake"
               >
-                <MessageSquare className="w-5 h-5 fill-white" />
-                <span>💬 WhatsApp</span>
+                <MessageSquare className="w-5 h-5 fill-white shrink-0" />
+                <span>💬 Chat on WhatsApp (+92 304 2351501)</span>
               </a>
+
+              {/* Trust Features */}
+              <div className="grid grid-cols-3 gap-2 text-center text-[10px] font-extrabold text-amber-200/90 pt-1">
+                <div className="bg-black/20 p-2 rounded-xl border border-white/10">
+                  🚚 Free Delivery
+                </div>
+                <div className="bg-black/20 p-2 rounded-xl border border-white/10">
+                  💵 Cash on Delivery
+                </div>
+                <div className="bg-black/20 p-2 rounded-xl border border-white/10">
+                  🌿 100% Organic
+                </div>
+              </div>
             </div>
 
           </div>

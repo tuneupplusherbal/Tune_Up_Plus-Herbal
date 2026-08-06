@@ -129,13 +129,25 @@ export default function BenefitsSection({ onOrderClick }: BenefitsSectionProps) 
 
             {/* Product Image on Right */}
             <div className="lg:col-span-5 flex justify-center">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-[#d4a743]/40 max-w-sm w-full transform transition-transform duration-500 hover:scale-105">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-[#d4a743]/40 max-w-sm w-full transform transition-transform duration-500 hover:scale-105 group">
                 <img
                   src={flatlayImg}
                   alt="Tune-Up+ Bottle and Herbal Capsules Flatlay"
                   className="w-full h-64 sm:h-72 object-cover"
                   referrerPolicy="no-referrer"
                 />
+
+                {/* Attractive Price Ribbon Badge */}
+                <div className="absolute top-3 right-3 z-10">
+                  <div className="bg-gradient-to-r from-[#d4a743] via-[#f7e8a9] to-[#d4a743] text-emerald-950 font-black px-3.5 py-1.5 rounded-full shadow-2xl border-2 border-amber-100 flex items-center gap-1.5 shadow-amber-500/30 transform hover:scale-105 transition-all">
+                    <Sparkles className="w-4 h-4 text-emerald-950 fill-emerald-950 animate-pulse" />
+                    <span className="text-sm sm:text-base font-black tracking-tight">Rs.6900</span>
+                    <span className="bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider ml-0.5 shadow-sm">
+                      30% OFF
+                    </span>
+                  </div>
+                </div>
+
                 <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-3 text-center">
                   <p className="text-white font-black text-xs uppercase tracking-wider">TUNE-UP+ HERBS OF FOODS</p>
                   <p className="text-[#f0d48f] text-[11px] font-semibold">60 Pure Organic Dietary Capsules</p>

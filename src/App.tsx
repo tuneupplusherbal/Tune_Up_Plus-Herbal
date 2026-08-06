@@ -35,6 +35,7 @@ import HeroCarousel from './components/HeroCarousel';
 import BenefitsSection from './components/BenefitsSection';
 import OrderContactSection from './components/OrderContactSection';
 import TuneUpPlusProductPage from './components/TuneUpPlusProductPage';
+import NotFoundPage from './components/NotFoundPage';
 
 export default function App() {
   // Route state
@@ -49,6 +50,13 @@ export default function App() {
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
+
+  // Trigger Meta Pixel PageView on client-side route changes
+  useEffect(() => {
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+      (window as any).fbq('track', 'PageView');
+    }
+  }, [currentPath]);
 
   const navigateToProductPage = () => {
     if (typeof window !== 'undefined') {
@@ -138,9 +146,15 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // If path is /tuneupplus/ or /tuneupplus, render dedicated Product Page
+  // Route dispatching
   if (currentPath.includes('tuneupplus')) {
     return <TuneUpPlusProductPage onBackToMain={navigateToHome} />;
+  }
+
+  // Handle 404 for unknown routes (anything other than root '/')
+  const isRootPath = currentPath === '/' || currentPath === '' || currentPath === '/index.html' || currentPath.startsWith('/#');
+  if (!isRootPath) {
+    return <NotFoundPage onBackToHome={navigateToHome} onGoToProductPage={navigateToProductPage} />;
   }
 
   // Smooth-scroll navigation helper for solid single-page experience
@@ -265,7 +279,6 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           
           {/* Brand Logo and Urdu Tagline */}
-          {/* Logo brand */}
           <div className="flex items-center gap-2.5 cursor-pointer group" onClick={() => scrollTo('home')}>
             <img 
               src="/favicon.svg" 
@@ -305,7 +318,7 @@ export default function App() {
             ))}
           </nav>
 
-          {/* TWO PROMINENT HEADER BUTTONS - As specifically requested */}
+          {/* TWO PROMINENT HEADER BUTTONS */}
           <div className="hidden lg:flex items-center space-x-3">
             
             {/* BUTTON 1 (Left): Order on WhatsApp */}
@@ -318,7 +331,7 @@ export default function App() {
               <span>📞</span> Order on WhatsApp
             </a>
 
-            {/* BUTTON 2 (Right): Order Now (Green theme, Pulse load animation, subtle rotate on hover, links to /tuneupplus/ Product Page) */}
+            {/* BUTTON 2 (Right): Order Now */}
             <button
               onClick={navigateToProductPage}
               className="bg-[#1a4d2e] text-white px-5 py-2.5 rounded-lg font-bold text-xs xl:text-sm flex items-center gap-1.5 shadow-md shadow-[#1a4d2e]/10 hover:bg-[#d4a743] hover:text-white transition-all duration-300 transform hover:scale-[1.05] hover:rotate-[1deg] animate-pulse cursor-pointer"
@@ -665,10 +678,10 @@ export default function App() {
 
                 <div className="text-center pt-2">
                   <button 
-                    onClick={() => scrollTo('contact')}
-                    className="bg-[#d4a743] hover:bg-[#1a4d2e] text-white font-black py-3.5 px-8 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center gap-2 text-sm transform hover:-translate-y-0.5"
+                    onClick={navigateToProductPage}
+                    className="bg-[#d4a743] hover:bg-[#1a4d2e] text-emerald-950 hover:text-white font-black py-3.5 px-8 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center gap-2 text-sm transform hover:-translate-y-0.5 cursor-pointer"
                   >
-                    <span>Abhi Free Health Consultation Lijiye</span>
+                    <span>Tune-Up+ Product Page Par Jayein</span>
                     <ChevronRight className="w-5 h-5" />
                   </button>
                 </div>
@@ -864,25 +877,56 @@ export default function App() {
         <OrderContactSection productImage={productImage} />
 
         {/* ==================== FAQS SECTION ==================== */}
-        <section className="py-20 bg-white border-t border-[#e8f5e9]">
+        <section className="py-20 bg-gradient-to-b from-[#f7fcf8] to-white border-t border-[#e8f5e9]">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16 space-y-4">
-              <span className="text-xs uppercase tracking-widest font-black text-[#d4a743] bg-[#f5e6b8] px-3 py-1 rounded-full">Sawaal aur Jawab</span>
-              <h2 className="text-3xl font-serif font-black text-[#1a4d2e]">Aam Tor Par Poochhe Janay Waley Sawaalat</h2>
-              <p className="text-sm text-gray-500 font-semibold">TUNE-UP+ Ke Baaray Mein Kuch Zaroori Maloomat Jo Pakistanis Poochte Hain</p>
+            <div className="text-center mb-14 space-y-3">
+              <div className="inline-flex items-center gap-1.5 text-xs uppercase tracking-widest font-black text-[#1a4d2e] bg-[#e8f5e9] border border-[#2e6e47]/30 px-4 py-1.5 rounded-full shadow-sm">
+                <span className="text-[#d4a743]">❓</span> Sawaal aur Jawab (FAQs)
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-serif font-black text-[#1a4d2e] tracking-tight">
+                Aam Tor Par Poochhe Janay Waley Sawaalat
+              </h2>
+              <p className="text-xs sm:text-sm text-gray-600 font-semibold max-w-lg mx-auto">
+                TUNE-UP+ Ke Baaray Mein Kuch Zaroori Maloomat Jo Pakistanis Poochte Hain
+              </p>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-4">
               {FAQS.map((faq, idx) => (
-                <div key={idx} className="bg-[#fafdfb] p-6 rounded-3xl border border-[#e8f5e9] space-y-2">
-                  <h3 className="font-extrabold text-base text-[#1a4d2e] flex gap-2">
-                    <span className="text-[#d4a743]">Q.</span>
-                    <span>{faq.q}</span>
+                <div 
+                  key={idx} 
+                  className="bg-white p-6 rounded-3xl border border-[#e8f5e9] shadow-md hover:shadow-xl hover:border-[#d4a743]/50 transition-all duration-300 space-y-3 group"
+                >
+                  <h3 className="font-serif font-black text-base sm:text-lg text-[#1a4d2e] flex items-start gap-3 leading-snug">
+                    <span className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#1a4d2e] to-[#2e6e47] text-[#d4a743] flex items-center justify-center text-sm font-black shrink-0 shadow-sm group-hover:scale-105 transition-transform">
+                      Q{idx + 1}
+                    </span>
+                    <span className="pt-0.5">{faq.q}</span>
                   </h3>
-                  <p className="text-xs text-gray-600 leading-relaxed pl-6">{faq.a}</p>
+                  <div className="pl-11 border-l-2 border-[#d4a743]/30 ml-4 py-1">
+                    <p className="text-xs sm:text-sm text-gray-600 leading-relaxed font-medium">{faq.a}</p>
+                  </div>
                 </div>
               ))}
             </div>
+
+            {/* Quick Helpline Banner below FAQs */}
+            <div className="mt-12 p-6 rounded-3xl bg-[#1a4d2e] text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl border border-emerald-700/50">
+              <div className="text-center sm:text-left space-y-1">
+                <h4 className="font-serif font-black text-lg text-[#d4a743]">Koyi Aur Sawaal Hai?</h4>
+                <p className="text-xs text-emerald-100 font-medium">Hamari herbal team aapse rabte ke liye hamesha available hai.</p>
+              </div>
+              <a
+                href="https://wa.me/923042351501?text=Assalam-o-Alaikum!%20Mene%20FAQs%20dekhe%20hain%20aur%20mujhe%20aur%20jankari%20chahiye."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-[#25d366] hover:bg-[#20ba59] text-white px-5 py-3 rounded-2xl font-black text-xs sm:text-sm flex items-center gap-2 shadow-lg transition-transform hover:scale-105 cursor-pointer shrink-0"
+              >
+                <MessageSquare className="w-4 h-4 fill-white" />
+                <span>WhatsApp Doctor Consultation</span>
+              </a>
+            </div>
+
           </div>
         </section>
 
@@ -962,16 +1006,17 @@ export default function App() {
         </div>
       </footer>
 
-      {/* FLOAT WHATSAPP ACTIVE ICON (Bottom Right) */}
+      {/* FLOAT WHATSAPP ACTIVE ICON (Bottom Right - Mobile & Desktop) */}
       <a 
-        href="https://wa.me/923042351501"
+        href="https://wa.me/923042351501?text=Assalam-o-Alaikum!%20Mujhe%20Tune-Up%2B%20ke%20bare%20mein%20rehnemai%20chahiye."
         target="_blank"
         rel="noreferrer"
-        className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform cursor-pointer group"
+        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 bg-[#25d366] hover:bg-[#20ba59] text-white px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-full flex items-center gap-2 shadow-2xl hover:scale-105 transition-transform cursor-pointer border-2 border-white animate-bounce"
+        aria-label="WhatsApp Doctor Support"
       >
-        <span className="text-3xl">💬</span>
-        <span className="absolute right-16 bg-white text-[#333333] border border-[#25D366] text-[10px] px-2 py-1 rounded-lg font-bold shadow-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-          Doctor se Rabta Karein!
+        <MessageSquare className="w-6 h-6 sm:w-7 sm:h-7 fill-white shrink-0" />
+        <span className="text-xs sm:text-sm font-black tracking-wide text-white">
+          WhatsApp Chat
         </span>
       </a>
 

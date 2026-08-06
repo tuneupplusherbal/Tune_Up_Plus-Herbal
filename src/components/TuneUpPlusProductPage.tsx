@@ -123,11 +123,11 @@ export default function TuneUpPlusProductPage({ onBackToMain }: TuneUpPlusProduc
               </button>
             )}
             <div className="flex items-center gap-2">
-              <span className="w-3 h-3 rounded-full bg-[#d4a743] animate-pulse" />
-              <span className="font-serif font-black text-lg sm:text-xl text-white tracking-wide">
+              <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#d4a743] animate-pulse" />
+              <span className="font-serif font-black text-base sm:text-xl text-white tracking-wide">
                 TUNE-UP<span className="text-[#d4a743]">+</span>
               </span>
-              <span className="text-[10px] bg-[#d4a743] text-emerald-950 font-black px-2 py-0.5 rounded uppercase tracking-wider ml-1">
+              <span className="hidden sm:inline-block text-[10px] bg-[#d4a743] text-emerald-950 font-black px-2 py-0.5 rounded uppercase tracking-wider ml-1">
                 Official Store
               </span>
             </div>
@@ -328,7 +328,7 @@ export default function TuneUpPlusProductPage({ onBackToMain }: TuneUpPlusProduc
               <button
                 type="button"
                 onClick={openOrderModal}
-                className="w-full bg-[#d4a743] hover:bg-[#e2b54e] active:scale-[0.98] text-emerald-950 font-black text-xl sm:text-2xl py-4 px-8 rounded-2xl transition-all duration-300 shadow-2xl flex items-center justify-center gap-3 border-2 border-amber-200 cursor-pointer group"
+                className="w-full bg-[#d4a743] hover:bg-[#e2b54e] active:scale-[0.98] text-emerald-950 font-black text-xl sm:text-2xl py-4 px-8 rounded-2xl transition-all duration-300 shadow-2xl flex items-center justify-center gap-3 border-2 border-amber-200 cursor-pointer group animate-cta-shake"
               >
                 <ShoppingCart className="w-7 h-7 text-emerald-950 group-hover:scale-110 transition-transform" />
                 <span>Order Now — Cash on Delivery</span>
@@ -533,7 +533,7 @@ export default function TuneUpPlusProductPage({ onBackToMain }: TuneUpPlusProduc
             <div className="pt-2">
               <button
                 onClick={openOrderModal}
-                className="w-full bg-[#1a4d2e] hover:bg-[#d4a743] text-white font-black py-3.5 px-6 rounded-xl transition-all shadow-md flex items-center justify-center gap-2 text-sm sm:text-base"
+                className="w-full bg-[#1a4d2e] hover:bg-[#d4a743] text-white hover:text-emerald-950 font-black py-4 px-6 rounded-2xl transition-all shadow-xl flex items-center justify-center gap-2 text-base sm:text-lg animate-cta-shake cursor-pointer border-2 border-[#d4a743]"
               >
                 <ShoppingCart className="w-5 h-5" />
                 <span>🛒 Order Now — Cash on Delivery (Rs. 6,900)</span>
@@ -595,16 +595,16 @@ export default function TuneUpPlusProductPage({ onBackToMain }: TuneUpPlusProduc
         </div>
       </footer>
 
-      {/* ================= FLOATING WHATSAPP BUTTON (Fixed Bottom Right) ================= */}
+      {/* ================= FLOATING WHATSAPP BUTTON (Fixed Bottom Right - Mobile & Desktop) ================= */}
       <a
         href="https://wa.me/923042351501?text=Assalam-o-Alaikum%20Tune-Up%2B%20Product%20Page%20se%20rabta%20karna%20hai"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 bg-[#25d366] hover:bg-[#20ba59] text-white p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 flex items-center justify-center group border-2 border-white"
+        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 bg-[#25d366] hover:bg-[#20ba59] text-white px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-full shadow-2xl transition-all duration-300 hover:scale-105 flex items-center gap-2 border-2 border-white animate-bounce cursor-pointer"
         aria-label="WhatsApp Support"
       >
-        <MessageSquare className="w-7 h-7 fill-white" />
-        <span className="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-300 text-xs font-black pl-0 group-hover:pl-2">
+        <MessageSquare className="w-6 h-6 sm:w-7 sm:h-7 fill-white shrink-0" />
+        <span className="text-xs sm:text-sm font-black tracking-wide text-white">
           WhatsApp Chat
         </span>
       </a>
