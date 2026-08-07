@@ -133,6 +133,8 @@ export default function BenefitsSection({ onOrderClick }: BenefitsSectionProps) 
                 <img
                   src={flatlayImg}
                   alt="Tune-Up+ Bottle and Herbal Capsules Flatlay"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-64 sm:h-72 object-cover"
                   referrerPolicy="no-referrer"
                 />
@@ -231,6 +233,8 @@ export default function BenefitsSection({ onOrderClick }: BenefitsSectionProps) 
               <img
                 src={pcsirImg}
                 alt="PCSIR Laboratories Complex Lahore Official Test Report for Tune-Up+ Capsules"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-auto object-contain rounded-xl max-h-[600px] mx-auto shadow-md transition-transform duration-500 group-hover:scale-[1.01]"
                 referrerPolicy="no-referrer"
               />

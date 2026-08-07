@@ -10,6 +10,7 @@ export default function OrderContactSection({ productImage }: OrderContactSectio
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
+  const [nearby, setNearby] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -104,6 +105,7 @@ export default function OrderContactSection({ productImage }: OrderContactSectio
                     <p className="text-gray-300"><strong className="text-white">Quantity:</strong> {quantity} Pack(s)</p>
                     <p className="text-gray-300"><strong className="text-white">Total Bill:</strong> <span className="text-[#d4a743] font-black text-sm">Rs. {totalPrice.toLocaleString()}</span></p>
                     <p className="text-gray-300"><strong className="text-white">Address:</strong> {address}</p>
+                    {nearby && <p className="text-gray-300"><strong className="text-white">Near By:</strong> {nearby}</p>}
                   </div>
 
                   <button
@@ -113,6 +115,7 @@ export default function OrderContactSection({ productImage }: OrderContactSectio
                       setPhone('');
                       setEmail('');
                       setAddress('');
+                      setNearby('');
                       setQuantity(1);
                     }}
                     className="w-full bg-[#d4a743] hover:bg-[#c29633] text-white py-3 rounded-xl font-bold text-sm transition-all shadow-lg"
@@ -179,6 +182,20 @@ export default function OrderContactSection({ productImage }: OrderContactSectio
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
                       className="w-full bg-white/10 text-white placeholder-gray-300 border border-white/30 focus:border-[#d4a743] focus:ring-2 focus:ring-[#d4a743]/50 focus:outline-none rounded-xl px-4 py-2.5 text-sm transition-all resize-none"
+                    />
+                  </div>
+
+                  {/* 5. Near By / Mashhoor Jaga */}
+                  <div className="space-y-1">
+                    <label className="block text-xs font-bold text-white uppercase tracking-wider">
+                      Near By (Qareebi Mashhoor Jaga)
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Ghar/Dukaan ke qareeb mashhoor masjid, hospital ya chowk"
+                      value={nearby}
+                      onChange={(e) => setNearby(e.target.value)}
+                      className="w-full bg-white/10 text-white placeholder-gray-300 border border-white/30 focus:border-[#d4a743] focus:ring-2 focus:ring-[#d4a743]/50 focus:outline-none rounded-xl px-4 py-3 text-sm transition-all"
                     />
                   </div>
 

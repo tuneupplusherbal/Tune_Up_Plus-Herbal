@@ -262,6 +262,8 @@ export default function HeroCarousel({ productImage, onOrderClick, onMoreClick }
                     <img
                       src={currentSlide.slideImage || productImage}
                       alt={currentSlide.headingRoman}
+                      loading={currentIndex === 0 ? "eager" : "lazy"}
+                      decoding="async"
                       className="w-full h-full object-cover rounded-2xl transition-all duration-700 hover:scale-105"
                       referrerPolicy="no-referrer"
                       onError={(e) => {

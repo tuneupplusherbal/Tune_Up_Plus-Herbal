@@ -652,6 +652,8 @@ export default function App() {
                             <img 
                               src={ing.image} 
                               alt={ing.name} 
+                              loading="lazy"
+                              decoding="async"
                               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                               referrerPolicy="no-referrer"
                             />
@@ -753,6 +755,8 @@ export default function App() {
                   <img 
                     src={familyImage} 
                     alt="Happy Pakistani generational family smiling in fresh green garden representing herbal health" 
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover lg:absolute inset-0 group-hover:scale-105 transition-transform duration-700"
                     referrerPolicy="no-referrer"
                     onError={(e) => {

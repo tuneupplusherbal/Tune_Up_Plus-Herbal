@@ -44,6 +44,7 @@ export default function TuneUpPlusProductPage({ onBackToMain }: TuneUpPlusProduc
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
+  const [nearby, setNearby] = useState('');
 
   const unitPrice = 6900;
   const totalPrice = quantity * unitPrice;
@@ -201,6 +202,8 @@ export default function TuneUpPlusProductPage({ onBackToMain }: TuneUpPlusProduc
                 <img
                   src={productImages[selectedImageIndex].src}
                   alt={productImages[selectedImageIndex].alt}
+                  loading={selectedImageIndex === 0 ? "eager" : "lazy"}
+                  decoding="async"
                   className="w-full h-full object-cover rounded-xl transition-transform duration-500 transform group-hover:scale-105"
                 />
 
@@ -259,6 +262,8 @@ export default function TuneUpPlusProductPage({ onBackToMain }: TuneUpPlusProduc
                       <img 
                         src={img.src} 
                         alt={img.alt} 
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover rounded-lg"
                       />
                     </button>
@@ -748,6 +753,21 @@ export default function TuneUpPlusProductPage({ onBackToMain }: TuneUpPlusProduc
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                     className="w-full bg-gray-50 border border-gray-300 focus:border-[#1a4d2e] focus:ring-2 focus:ring-[#1a4d2e]/30 focus:outline-none rounded-xl px-4 py-2.5 text-sm font-medium transition-all resize-none"
+                  />
+                </div>
+
+                {/* 4.5. Near By / Mashhoor Jaga */}
+                <div className="space-y-1">
+                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider">
+                    Near By (Qareebi Mashhoor Jaga)
+                  </label>
+                  <input
+                    type="text"
+                    name="Nearby Landmark"
+                    placeholder="Ghar/dukaan ke qareeb mashhoor masjid, hospital ya chowk"
+                    value={nearby}
+                    onChange={(e) => setNearby(e.target.value)}
+                    className="w-full bg-gray-50 border border-gray-300 focus:border-[#1a4d2e] focus:ring-2 focus:ring-[#1a4d2e]/30 focus:outline-none rounded-xl px-4 py-2.5 text-sm font-medium transition-all"
                   />
                 </div>
 
